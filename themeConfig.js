@@ -1,17 +1,17 @@
-import { breakpointsVuetify } from '@vueuse/core'
-import { VIcon } from 'vuetify/components/VIcon'
 import { defineThemeConfig } from '@core'
 import { Skins } from '@core/enums'
+import { breakpointsVuetify } from '@vueuse/core'
+import { VIcon } from 'vuetify/components/VIcon'
 
 // ❗ Logo SVG must be imported with ?raw suffix
-import logo from '@images/logo.svg?raw'
+import logo from '@images/PamsmobileLogo.png'
 import { AppContentLayoutNav, ContentWidth, FooterType, NavbarType } from '@layouts/enums'
 
 export const { themeConfig, layoutConfig } = defineThemeConfig({
   app: {
-    title: 'vuexy',
-    logo: h('div', { innerHTML: logo, style: 'line-height:0; color: rgb(var(--v-global-theme-primary))' }),
-    contentWidth: ContentWidth.Boxed,
+    title: 'PAMSMobile',
+    logo: h('img', { src: logo, alt: 'app-logo',
+      style: 'width: 50px; height: auto;' }),    contentWidth: ContentWidth.Boxed,
     contentLayoutNav: AppContentLayoutNav.Vertical,
     overlayNavFromBreakpoint: breakpointsVuetify.md + 16,
     i18n: {
@@ -62,8 +62,8 @@ export const { themeConfig, layoutConfig } = defineThemeConfig({
     chevronDown: { icon: 'tabler-chevron-down' },
     chevronRight: { icon: 'tabler-chevron-right', size: 18 },
     close: { icon: 'tabler-x' },
-    verticalNavPinned: { icon: 'tabler-circle-dot' },
-    verticalNavUnPinned: { icon: 'tabler-circle' },
+    verticalNavPinned: { icon: 'tabler-pinned-filled' },
+    verticalNavUnPinned: { icon: 'tabler-pinned-off' },
     sectionTitlePlaceholder: { icon: 'tabler-separator' },
   },
 })
