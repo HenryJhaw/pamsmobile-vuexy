@@ -33,20 +33,28 @@ const UserSchema = Schema(
         password: {
             type: String,
             required: true,
-            min: 6,
+            min: 6
         },
 
         refresh_token: String
     },
     {
-        virtual: {
+        virtuals: {
             full_name: {
                 get() {
                     return this.first_name + ' ' + this.last_name
                 }
+            },
+
+            id: {
+                get() {
+                    return this._id
+                }
             }
-        }
-    }
+        },
+        timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
+    },
+
 )
 
 module.exports = mongoose.model('User', UserSchema)
