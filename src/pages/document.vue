@@ -1,6 +1,7 @@
-
 <script setup>
 import AddEditDocumentDialog from '@/components/dialogs/AddEditDocumentDialog.vue'
+import { ref } from 'vue'
+import { VDataTableServer } from 'vuetify/labs/VDataTable'
 
 const widgetData = ref([
   {
@@ -23,35 +24,24 @@ const widgetData = ref([
 const headers = [
   {
     title: 'Title',
-    key: 'product',
+    key: 'title',
   },
   {
     title: 'Category',
     key: 'category',
   },
-
-  // {
-  //   title: 'Stock',
-  //   key: 'stock',
-  //   sortable: false,
-  // },
   {
     title: 'Since',
-    key: 'sku',
+    key: 'since',
   },
   {
     title: 'Until',
-    key: 'price',
+    key: 'until',
   },
   {
     title: 'Attachment',
-    key: 'qty',
+    key: 'attachment',
   },
-
-  // {
-  //   title: 'Status',
-  //   key: 'status',
-  // },
   {
     title: 'Actions',
     key: 'actions',
@@ -59,11 +49,8 @@ const headers = [
   },
 ]
 
-// const selectedStatus = ref()
 const selectedCategory = ref()
-
-// const selectedStock = ref()
-// const searchQuery = ref('')
+const searchQuery = ref('')
 
 // Data table options
 const itemsPerPage = ref(10)
@@ -72,12 +59,39 @@ const sortBy = ref()
 const orderBy = ref()
 
 const isAddDocumentDialogVisible = ref(false)
-</script>
 
+// Mock data for the data table
+const documents = ref([
+  {
+    id: 1,
+    title: 'Document 1',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 2,
+    title: 'Document 2',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+
+  // Add more mock data as needed
+])
+
+const totalDocument = ref(documents.value.length)
+
+const updateOptions = options => {
+  // Handle options update logic here
+}
+</script>
 
 <template>
   <div>
-    <!-- 👉 widgets -->
+    <!-- Widgets -->
     <VCard class="mb-6">
       <VCardText>
         <VRow>
@@ -93,26 +107,19 @@ const isAddDocumentDialogVisible = ref(false)
             >
               <div
                 class="d-flex justify-space-between"
-                :class="$vuetify.display.xs
-                  ? 'product-widget'
-                  : $vuetify.display.sm
-                    ? id < 2 ? 'product-widget' : ''
-                    : ''"
+                :class="$vuetify.display.xs ? 'document-widget' : $vuetify.display.sm ? id < 2 ? 'document-widget' : '' : ''"
               >
                 <div class="d-flex flex-column gap-y-1">
                   <div class="text-body-1 font-weight-medium text-capitalize">
                     {{ data.title }}
                   </div>
-
                   <h4 class="text-h4 my-1">
                     {{ data.value }}
                   </h4>
-
                   <div class="d-flex">
                     <div class="me-2 text-disabled text-no-wrap">
                       {{ data.desc }}
                     </div>
-
                     <VChip
                       v-if="data.change"
                       label
@@ -122,7 +129,6 @@ const isAddDocumentDialogVisible = ref(false)
                     </VChip>
                   </div>
                 </div>
-
                 <VAvatar
                   variant="tonal"
                   rounded
@@ -136,9 +142,7 @@ const isAddDocumentDialogVisible = ref(false)
               </div>
             </VCol>
             <VDivider
-              v-if="$vuetify.display.mdAndUp ? id !== widgetData.length - 1
-                : $vuetify.display.smAndUp ? id % 2 === 0
-                  : false"
+              v-if="$vuetify.display.mdAndUp ? id !== widgetData.length - 1 : $vuetify.display.smAndUp ? id % 2 === 0 : false"
               vertical
               inset
               length="95"
@@ -148,31 +152,14 @@ const isAddDocumentDialogVisible = ref(false)
       </VCardText>
     </VCard>
 
-    <!-- 👉 products -->
+    <!-- Documents -->
     <VCard
       title="Filters"
       class="mb-6"
     >
       <VCardText>
         <VRow>
-          <!-- 👉 Select Status -->
-          <!--
-            <VCol
-            cols="12"
-            sm="4"
-            >
-            <AppSelect
-            v-model="selectedStatus"
-            placeholder="Select Category"
-            :items="status"
-            clearable
-            clear-icon="tabler-x"
-            />
-            </VCol> 
-          -->
-
-          <!-- 👉 Select Category -->
-          
+          <!-- Select Category -->
           <VCol
             cols="12"
             sm="4"
@@ -184,31 +171,13 @@ const isAddDocumentDialogVisible = ref(false)
               clearable
               clear-icon="tabler-x"
             />
-          </VCol> 
-         
-
-          <!-- 👉 Select Stock Status -->
-          <!--
-            <VCol
-            cols="12"
-            sm="4"
-            >
-            <AppSelect
-            v-model="selectedStock"
-            placeholder="Stock"
-            :items="stockStatus"
-            clearable
-            clear-icon="tabler-x"
-            />
-            </VCol> 
-          -->
+          </VCol>
         </VRow>
       </VCardText>
       <VDivider class="my-4" />
-
       <div class="d-flex flex-wrap gap-4 mx-5">
         <div class="d-flex align-center">
-          <!-- 👉 Search  -->
+          <!-- Search -->
           <AppTextField
             v-model="searchQuery"
             placeholder="Search Document"
@@ -217,24 +186,12 @@ const isAddDocumentDialogVisible = ref(false)
             class="me-3"
           />
         </div>
-
         <VSpacer />
         <div class="d-flex gap-4 flex-wrap align-center">
           <AppSelect
             v-model="itemsPerPage"
             :items="[5, 10, 20, 25, 50]"
           />
-          <!-- 👉 Export button -->
-          <!--
-            <VBtn
-            variant="tonal"
-            color="secondary"
-            prepend-icon="tabler-upload"
-            >
-            Export
-            </VBtn> 
-          -->
-
           <VBtn
             color="primary"
             prepend-icon="tabler-plus"
@@ -246,35 +203,97 @@ const isAddDocumentDialogVisible = ref(false)
       </div>
       <VDivider class="mt-4" />
 
-      <!-- 👉 Datatable  -->
+      <!-- Datatable -->
       <VDataTableServer
         v-model:items-per-page="itemsPerPage"
         v-model:page="page"
         :headers="headers"
         show-select
-        :items="products"
-        :items-length="totalProduct"
+        :items="documents"
+        :items-length="totalDocument"
         class="text-no-wrap"
         @update:options="updateOptions"
-      />
-      <template #item.product="{ item }">
-        <div class="d-flex align-center gap-x-2">
-          <!--
-            <VAvatar
-            v-if="item.image"
-            size="38"
-            variant="tonal"
-            rounded
-            :image="item.image"
-            /> 
-          -->
-          <div class="d-flex flex-column">
-            <span class="text-body-1 font-weight-medium">{{ item.productName }}</span>
-            <span class="text-sm text-disabled">{{ item.productBrand }}</span>
+      >
+        <!-- Title -->
+        <template #item.title="{ item }">
+          {{ item.title }}
+        </template>
+        <!-- Category -->
+        <template #item.category="{ item }">
+          {{ item.category }}
+        </template>
+        <!-- Since -->
+        <template #item.since="{ item }">
+          {{ new Date(item.since).toDateString() }}
+        </template>
+        <!-- Until -->
+        <template #item.until="{ item }">
+          {{ new Date(item.until).toDateString() }}
+        </template>
+        <!-- Attachment -->
+        <template #item.attachment="{ item }">
+          <span class="text-body-1 font-weight-medium text-high-emphasis">{{ item.attachment }}</span>
+        </template>
+        <!-- Actions -->
+        <template #item.actions="{ item }">
+          <IconBtn>
+            <VIcon icon="tabler-edit" />
+          </IconBtn>
+          <IconBtn>
+            <VIcon icon="tabler-dots-vertical" />
+            <VMenu activator="parent">
+              <VList>
+                <VListItem
+                  value="delete"
+                  prepend-icon="tabler-trash"
+                  @click="deleteDocument(item.id)"
+                >
+                  Delete
+                </VListItem>
+              </VList>
+            </VMenu>
+          </IconBtn>
+        </template>
+        <template #bottom>
+          <VDivider />
+          <div class="d-flex align-center justify-space-between flex-wrap gap-3 pa-5 pt-3">
+            <VPagination
+              v-model="page"
+              :length="Math.min(Math.ceil(totalDocument / itemsPerPage), 5)"
+              :total-visible="$vuetify.display.xs ? 1 : Math.min(Math.ceil(totalDocument / itemsPerPage), 5)"
+            >
+              <template #prev="slotProps">
+                <VBtn
+                  variant="tonal"
+                  color="default"
+                  v-bind="slotProps"
+                  :icon="false"
+                >
+                  Previous
+                </VBtn>
+              </template>
+              <template #next="slotProps">
+                <VBtn
+                  variant="tonal"
+                  color="default"
+                  v-bind="slotProps"
+                  :icon="false"
+                >
+                  Next
+                </VBtn>
+              </template>
+            </VPagination>
           </div>
-        </div>
-      </template>
+        </template>
+      </VDataTableServer>
     </VCard>
     <AddEditDocumentDialog v-model:is-dialog-visible="isAddDocumentDialogVisible" />
   </div>
 </template>
+
+<style lang="scss" scoped>
+.document-widget {
+  border-block-end: 1px solid rgba(var(--v-theme-on-surface), var(--v-border-opacity));
+  padding-block-end: 1rem;
+}
+</style>
