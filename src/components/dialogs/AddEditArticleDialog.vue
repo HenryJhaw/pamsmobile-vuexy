@@ -6,13 +6,12 @@ import {
 } from '@vueuse/core'
 import { ref, watch } from 'vue'
 
-
 const props = defineProps({
   isDialogVisible: {
     type: Boolean,
     required: true,
   },
-  documentName: {
+  articleName: {
     type: String,
     required: false,
     default: '',
@@ -21,7 +20,7 @@ const props = defineProps({
 
 const emit = defineEmits([
   'update:isDialogVisible',
-  'update:documentName',
+  'update:articleName',
 ])
 
 const dropZoneRef = ref()
@@ -48,8 +47,7 @@ onChange(selectedFiles => {
 })
 useDropZone(dropZoneRef, onDrop)
 
-
-const currentDocumentName = ref('')
+const currentArticleName = ref('')
 const category = ref('')
 const StartDate = ref('')
 const EndDate = ref('')
@@ -57,7 +55,7 @@ const content = ref('')
 
 const onReset = () => {
   emit('update:isDialogVisible', false)
-  currentDocumentName.value = ''
+  currentArticleName.value = ''
   category.value = ''
   StartDate.value = ''
   EndDate.value = ''
@@ -66,11 +64,11 @@ const onReset = () => {
 
 const onSubmit = () => {
   emit('update:isDialogVisible', false)
-  emit('update:documentName', currentDocumentName.value)
+  emit('update:articleName', currentArticleName.value)
 }
 
 watch(props, () => {
-  currentDocumentName.value = props.documentName
+  currentArticleName.value = props.articleName
 })
 </script>
 
@@ -86,16 +84,16 @@ watch(props, () => {
       <!-- 👉 Title -->
       <VCardItem class="text-center">
         <VCardTitle class="text-h5">
-          {{ props.documentName ? 'Edit' : 'Add' }} Document
+          {{ props.articleName ? 'Edit' : 'Add' }} Article
         </VCardTitle>
         <VCardSubtitle>
-          {{ props.documentName ? 'Edit' : 'Add' }} document as per your requirements.
+          {{ props.articleName ? 'Edit' : 'Add' }} article as per your requirements.
         </VCardSubtitle>
       </VCardItem>
 
       <VCardText class="mt-1">
         <VForm>
-          <!-- 👉 Document category -->
+          <!-- 👉 Article category -->
           <div class="d-flex align-end gap-3 mb-3">
             <AppSelect
               v-model="category"
@@ -105,16 +103,16 @@ watch(props, () => {
               :items="['Rules', 'Regulation']"
             />
 
-            <!-- //👉 - Document title -->
+            <!-- //👉 - Article title -->
             <AppTextField
-              v-model="currentDocumentName"
+              v-model="currentArticleName"
               density="compact"
               :rules="[requiredValidator]"
               label="Title"
-              placeholder="Enter Document Title"
+              placeholder="Enter Article Title"
             />
           </div>
-          <!-- <VCheckbox label="Set as core document" /> -->
+          <!-- <VCheckbox label="Set as core article" /> -->
         </VForm>
       </VCardText>
 
@@ -209,7 +207,7 @@ watch(props, () => {
         <span class="mb-1">Description (optional)</span>
         <TiptapEditor
           v-model="content"
-          placeholder="Product Description"
+          placeholder="Article Description"
           class="border rounded"
         />
       </VCardText>
@@ -253,7 +251,7 @@ watch(props, () => {
 </template>
 
 <style lang="scss">
-.document-table {
+.article-table {
   td {
     border-block-end: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
     padding-block: 0.5rem;
