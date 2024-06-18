@@ -158,6 +158,486 @@ const allDocuments = ref([
     until: '2023-11-30',
     attachment: '2 Attachment',
   },
+  {
+    id: 1,
+    title: 'Document 1',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 2,
+    title: 'Document 2',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 3,
+    title: 'Document 3',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 4,
+    title: 'Document 4',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 5,
+    title: 'Document 5',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 6,
+    title: 'Document 6',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 7,
+    title: 'Document 7',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 8,
+    title: 'Document 8',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 9,
+    title: 'Document 9',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 10,
+    title: 'Document 10',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 11,
+    title: 'Document 11',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 12,
+    title: 'Document 12',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 1,
+    title: 'Document 1',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 2,
+    title: 'Document 2',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 3,
+    title: 'Document 3',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 4,
+    title: 'Document 4',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 5,
+    title: 'Document 5',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 6,
+    title: 'Document 6',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 7,
+    title: 'Document 7',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 8,
+    title: 'Document 8',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 9,
+    title: 'Document 9',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 10,
+    title: 'Document 10',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 11,
+    title: 'Document 11',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 12,
+    title: 'Document 12',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 1,
+    title: 'Document 1',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 2,
+    title: 'Document 2',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 3,
+    title: 'Document 3',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 4,
+    title: 'Document 4',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 5,
+    title: 'Document 5',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 6,
+    title: 'Document 6',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 7,
+    title: 'Document 7',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 8,
+    title: 'Document 8',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 9,
+    title: 'Document 9',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 10,
+    title: 'Document 10',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 11,
+    title: 'Document 11',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 12,
+    title: 'Document 12',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 1,
+    title: 'Document 1',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 2,
+    title: 'Document 2',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 3,
+    title: 'Document 3',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 4,
+    title: 'Document 4',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 5,
+    title: 'Document 5',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 6,
+    title: 'Document 6',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 7,
+    title: 'Document 7',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 8,
+    title: 'Document 8',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 9,
+    title: 'Document 9',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 10,
+    title: 'Document 10',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 11,
+    title: 'Document 11',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 12,
+    title: 'Document 12',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 1,
+    title: 'Document 1',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 2,
+    title: 'Document 2',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 3,
+    title: 'Document 3',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 4,
+    title: 'Document 4',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 5,
+    title: 'Document 5',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 6,
+    title: 'Document 6',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 7,
+    title: 'Document 7',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 8,
+    title: 'Document 8',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 9,
+    title: 'Document 9',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 10,
+    title: 'Document 10',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 11,
+    title: 'Document 11',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 12,
+    title: 'Document 12',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
 
   // Add more mock data as needed
 ])
@@ -187,6 +667,15 @@ const deleteDocument = id => {
     totalDocument.value = allDocuments.value.length
     fetchDocuments()
   }
+}
+
+// Define the paginationMeta function
+const paginationMeta = (pagination, totalItems) => {
+  const { page, itemsPerPage } = pagination
+  const start = itemsPerPage * (page - 1) + 1
+  const end = Math.min(itemsPerPage * page, totalItems)
+  
+  return `Showing ${start} to ${end} of ${totalItems} entries`
 }
 </script>
 
@@ -355,17 +844,19 @@ const deleteDocument = id => {
             </VMenu>
           </IconBtn>
         </template>
+
         <template #bottom>
           <VDivider />
+          
           <div class="d-flex align-center justify-space-between flex-wrap gap-3 pa-5 pt-3">
             <p class="text-sm text-medium-emphasis mb-0">
-              Showing {{ itemsPerPage.value * (page.value - 1) + 1 }} to
-              {{ Math.min(itemsPerPage.value * page.value, totalDocument.value) }} of {{ totalDocument.value }} entries
+              {{ paginationMeta({ page, itemsPerPage }, totalDocument) }}
             </p>
+            
             <VPagination
               v-model="page"
-              :length="Math.ceil(totalDocument.value / itemsPerPage.value)"
-              :total-visible="$vuetify.display.xs ? 1 : 5"
+              :length="Math.min(Math.ceil(totalDocument / itemsPerPage), 5)"
+              :total-visible="$vuetify.display.xs ? 1 : Math.min(Math.ceil(totalDocument / itemsPerPage), 5)"
             >
               <template #prev="slotProps">
                 <VBtn
@@ -395,6 +886,7 @@ const deleteDocument = id => {
     <AddEditDocumentDialog v-model:is-dialog-visible="isAddDocumentDialogVisible" />
   </div>
 </template>
+
 
 <style lang="scss" scoped>
 .document-widget {
