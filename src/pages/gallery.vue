@@ -89,7 +89,7 @@ const updateOptions = options => {
             <VCol
               cols="12"
               sm="6"
-              md="3"
+              md="4"
               class="px-6"
             >
               <div

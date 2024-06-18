@@ -78,6 +78,86 @@ const documents = ref([
     until: '2023-11-30',
     attachment: '2 Attachment',
   },
+  {
+    id: 3,
+    title: 'Document 3',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 4,
+    title: 'Document 4',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 5,
+    title: 'Document 5',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 6,
+    title: 'Document 6',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 7,
+    title: 'Document 7',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 8,
+    title: 'Document 8',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 9,
+    title: 'Document 9',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 10,
+    title: 'Document 10',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
+  {
+    id: 11,
+    title: 'Document 11',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
+  },
+  {
+    id: 12,
+    title: 'Document 12',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
+  },
 
   // Add more mock data as needed
 ])
@@ -102,7 +182,7 @@ const updateOptions = options => {
             <VCol
               cols="12"
               sm="6"
-              md="3"
+              md="4"
               class="px-6"
             >
               <div
