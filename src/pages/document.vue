@@ -1,6 +1,6 @@
 <script setup>
 import AddEditDocumentDialog from '@/components/dialogs/AddEditDocumentDialog.vue'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { VDataTableServer } from 'vuetify/labs/VDataTable'
 
 const widgetData = ref([
@@ -61,7 +61,7 @@ const orderBy = ref()
 const isAddDocumentDialogVisible = ref(false)
 
 // Mock data for the data table
-const documents = ref([
+const allDocuments = ref([
   {
     id: 1,
     title: 'Document 1',
@@ -162,10 +162,31 @@ const documents = ref([
   // Add more mock data as needed
 ])
 
-const totalDocument = ref(documents.value.length)
+const documents = ref([])
+const totalDocument = ref(allDocuments.value.length)
+
+const fetchDocuments = () => {
+  const start = (page.value - 1) * itemsPerPage.value
+  const end = start + itemsPerPage.value
+
+  documents.value = allDocuments.value.slice(start, end)
+}
 
 const updateOptions = options => {
-  // Handle options update logic here
+  page.value = options.page
+  itemsPerPage.value = options.itemsPerPage
+  fetchDocuments()
+}
+
+watch([page, itemsPerPage], fetchDocuments, { immediate: true })
+
+const deleteDocument = id => {
+  const index = allDocuments.value.findIndex(doc => doc.id === id)
+  if (index !== -1) {
+    allDocuments.value.splice(index, 1)
+    totalDocument.value = allDocuments.value.length
+    fetchDocuments()
+  }
 }
 </script>
 
@@ -337,10 +358,14 @@ const updateOptions = options => {
         <template #bottom>
           <VDivider />
           <div class="d-flex align-center justify-space-between flex-wrap gap-3 pa-5 pt-3">
+            <p class="text-sm text-medium-emphasis mb-0">
+              Showing {{ itemsPerPage.value * (page.value - 1) + 1 }} to
+              {{ Math.min(itemsPerPage.value * page.value, totalDocument.value) }} of {{ totalDocument.value }} entries
+            </p>
             <VPagination
               v-model="page"
-              :length="Math.min(Math.ceil(totalDocument / itemsPerPage), 5)"
-              :total-visible="$vuetify.display.xs ? 1 : Math.min(Math.ceil(totalDocument / itemsPerPage), 5)"
+              :length="Math.ceil(totalDocument.value / itemsPerPage.value)"
+              :total-visible="$vuetify.display.xs ? 1 : 5"
             >
               <template #prev="slotProps">
                 <VBtn
