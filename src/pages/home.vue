@@ -1,3 +1,8 @@
+<script setup>
+import AnalyticsSupportTracker from '@/views/dashboards/analytics/AnalyticsSupportTracker.vue'
+
+</script>
+
 <template>
   <div>
     <VCard
@@ -21,5 +26,13 @@
       <VCardText>We carefully crafted JWT flow so you can implement JWT with ease and with minimum efforts.</VCardText>
       <VCardText>Please read our  JWT Documentation to get more out of JWT authentication.</VCardText>
     </VCard>
+
+    <!-- 👉 Support Tracker -->
+    <VCol
+      cols="12"
+      md="6"
+    >
+      <AnalyticsSupportTracker />
+    </VCol>
   </div>
 </template>

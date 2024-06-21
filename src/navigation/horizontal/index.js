@@ -1,7 +1,9 @@
 export default [
   {
     title: 'Home',
-    to: { name: 'root' },
+    to: 'home',
+
+    // to: '{ name: 'root' }',
     icon: { icon: 'tabler-smart-home' },
   },
   {
@@ -59,7 +61,7 @@ export default [
       },
     ],
   },
-  
+
   //SECTION APP ACTIVITIES
   { heading: 'app activities' },
   {

@@ -39,7 +39,6 @@ import type {
 
 declare module 'vue-router/auto/routes' {
   export interface RouteNamedMap {
-    'root': RouteRecordInfo<'root', '/', Record<never, never>, Record<never, never>>,
     '$error': RouteRecordInfo<'$error', '/:error(.*)', { error: ParamValue<true> }, { error: ParamValue<false> }>,
     'activities': RouteRecordInfo<'activities', '/activities', Record<never, never>, Record<never, never>>,
     'analytics': RouteRecordInfo<'analytics', '/analytics', Record<never, never>, Record<never, never>>,
@@ -55,6 +54,7 @@ declare module 'vue-router/auto/routes' {
     'floor': RouteRecordInfo<'floor', '/floor', Record<never, never>, Record<never, never>>,
     'gallery': RouteRecordInfo<'gallery', '/gallery', Record<never, never>, Record<never, never>>,
     'goods-permit-information': RouteRecordInfo<'goods-permit-information', '/goods-permit-information', Record<never, never>, Record<never, never>>,
+    'home': RouteRecordInfo<'home', '/home', Record<never, never>, Record<never, never>>,
     'inspection': RouteRecordInfo<'inspection', '/inspection', Record<never, never>, Record<never, never>>,
     'login': RouteRecordInfo<'login', '/login', Record<never, never>, Record<never, never>>,
     'management': RouteRecordInfo<'management', '/management', Record<never, never>, Record<never, never>>,

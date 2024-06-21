@@ -1,6 +1,6 @@
 <script setup>
 import AddEditGalleryDialog from '@/components/dialogs/AddEditGalleryDialog.vue'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { VDataTableServer } from 'vuetify/labs/VDataTable'
 
 const widgetData = ref([
@@ -52,7 +52,7 @@ const orderBy = ref()
 const isAddGalleryDialogVisible = ref(false)
 
 // Mock data for the data table
-const galleries = ref([
+const allGalleries = ref([
   {
     id: 1,
     descriptions: 'Beautiful landscape',
@@ -69,10 +69,40 @@ const galleries = ref([
   // Add more mock data as needed
 ])
 
-const totalGallery = ref(galleries.value.length)
+const galleries = ref([])
+const totalGallery = ref(allGalleries.value.length)
+
+const fetchGalleries = () => {
+  const start = (page.value - 1) * itemsPerPage.value
+  const end = start + itemsPerPage.value
+
+  galleries.value = allGalleries.value.slice(start, end)
+}
 
 const updateOptions = options => {
-  // Handle options update logic here
+  page.value = options.page
+  itemsPerPage.value = options.itemsPerPage
+  fetchGalleries()
+}
+
+watch([page, itemsPerPage], fetchGalleries, { immediate: true })
+
+const deleteGallery = id => {
+  const index = allGalleries.value.findIndex(gallery => gallery.id === id)
+  if (index !== -1) {
+    allGalleries.value.splice(index, 1)
+    totalGallery.value = allGalleries.value.length
+    fetchGalleries()
+  }
+}
+
+// Define the paginationMeta function
+const paginationMeta = (pagination, totalItems) => {
+  const { page, itemsPerPage } = pagination
+  const start = itemsPerPage * (page - 1) + 1
+  const end = Math.min(itemsPerPage * page, totalItems)
+  
+  return `Showing ${start} to ${end} of ${totalItems} entries`
 }
 </script>
 
@@ -224,9 +254,12 @@ const updateOptions = options => {
         <template #bottom>
           <VDivider />
           <div class="d-flex align-center justify-space-between flex-wrap gap-3 pa-5 pt-3">
+            <p class="text-sm text-medium-emphasis mb-0">
+              {{ paginationMeta({ page, itemsPerPage }, totalGallery) }}
+            </p>
             <VPagination
               v-model="page"
-              :length="Math.min(Math.ceil(totalGallery / itemsPerPage), 5)"
+              :length="Math.ceil(totalGallery / itemsPerPage)"
               :total-visible="$vuetify.display.xs ? 1 : Math.min(Math.ceil(totalGallery / itemsPerPage), 5)"
             >
               <template #prev="slotProps">

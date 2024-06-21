@@ -1,6 +1,6 @@
 <script setup>
 import AddEditArticleDialog from '@/components/dialogs/AddEditArticleDialog.vue'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { VDataTableServer } from 'vuetify/labs/VDataTable'
 
 const widgetData = ref([
@@ -31,16 +31,12 @@ const headers = [
     key: 'category',
   },
   {
-    title: 'Since',
-    key: 'since',
+    title: 'Published Date',
+    key: 'published_date',
   },
   {
-    title: 'Until',
-    key: 'until',
-  },
-  {
-    title: 'Attachment',
-    key: 'attachment',
+    title: 'Author',
+    key: 'author',
   },
   {
     title: 'Actions',
@@ -61,31 +57,127 @@ const orderBy = ref()
 const isAddArticleDialogVisible = ref(false)
 
 // Mock data for the data table
-const articles = ref([
+const allArticles = ref([
   {
     id: 1,
     title: 'Article 1',
-    category: 'Category 1',
-    since: '2023-01-01',
-    until: '2023-12-31',
-    attachment: '10 Attachment',
+    category: 'Tech',
+    published_date: '2023-01-01',
+    author: 'Author 1',
   },
   {
     id: 2,
     title: 'Article 2',
-    category: 'Category 2',
-    since: '2023-02-01',
-    until: '2023-11-30',
-    attachment: '2 Attachment',
+    category: 'Health',
+    published_date: '2023-02-01',
+    author: 'Author 2',
   },
-
-  // Add more mock data as needed
+  {
+    id: 3,
+    title: 'Article 3',
+    category: 'Tech',
+    published_date: '2023-03-01',
+    author: 'Author 1',
+  },
+  {
+    id: 4,
+    title: 'Article 4',
+    category: 'Health',
+    published_date: '2023-04-01',
+    author: 'Author 2',
+  },
+  {
+    id: 5,
+    title: 'Article 5',
+    category: 'Tech',
+    published_date: '2023-05-01',
+    author: 'Author 1',
+  },
+  {
+    id: 6,
+    title: 'Article 6',
+    category: 'Health',
+    published_date: '2023-06-01',
+    author: 'Author 2',
+  },
+  {
+    id: 7,
+    title: 'Article 7',
+    category: 'Tech',
+    published_date: '2023-07-01',
+    author: 'Author 1',
+  },
+  {
+    id: 8,
+    title: 'Article 8',
+    category: 'Health',
+    published_date: '2023-08-01',
+    author: 'Author 2',
+  },
+  {
+    id: 9,
+    title: 'Article 9',
+    category: 'Tech',
+    published_date: '2023-09-01',
+    author: 'Author 1',
+  },
+  {
+    id: 10,
+    title: 'Article 10',
+    category: 'Health',
+    published_date: '2023-10-01',
+    author: 'Author 2',
+  },
+  {
+    id: 11,
+    title: 'Article 11',
+    category: 'Tech',
+    published_date: '2023-11-01',
+    author: 'Author 1',
+  },
+  {
+    id: 12,
+    title: 'Article 12',
+    category: 'Health',
+    published_date: '2023-12-01',
+    author: 'Author 2',
+  },
 ])
 
-const totalArticle = ref(articles.value.length)
+const articles = ref([])
+const totalArticle = ref(allArticles.value.length)
+
+const fetchArticles = () => {
+  const start = (page.value - 1) * itemsPerPage.value
+  const end = start + itemsPerPage.value
+
+  articles.value = allArticles.value.slice(start, end)
+}
 
 const updateOptions = options => {
-  // Handle options update logic here
+  page.value = options.page
+  itemsPerPage.value = options.itemsPerPage
+  fetchArticles()
+}
+
+watch([page, itemsPerPage], fetchArticles, { immediate: true })
+
+const deleteArticle = id => {
+  const index = allArticles.value.findIndex(article => article.id === id)
+  if (index !== -1) {
+    allArticles.value.splice(index, 1)
+    totalArticle.value = allArticles.value.length
+    fetchArticles()
+  }
+}
+
+// Define the paginationMeta function
+const paginationMeta = (pagination, totalItems) => {
+  const { page, itemsPerPage } = pagination
+  const start = itemsPerPage * (page - 1) + 1
+  const end = Math.min(itemsPerPage * page, totalItems)
+  
+  return `Showing ${start} to ${end} of ${totalItems} entries`
 }
 </script>
 
@@ -222,17 +314,13 @@ const updateOptions = options => {
         <template #item.category="{ item }">
           {{ item.category }}
         </template>
-        <!-- Since -->
-        <template #item.since="{ item }">
-          {{ new Date(item.since).toDateString() }}
+        <!-- Published Date -->
+        <template #item.published_date="{ item }">
+          {{ new Date(item.published_date).toDateString() }}
         </template>
-        <!-- Until -->
-        <template #item.until="{ item }">
-          {{ new Date(item.until).toDateString() }}
-        </template>
-        <!-- Attachment -->
-        <template #item.attachment="{ item }">
-          <span class="text-body-1 font-weight-medium text-high-emphasis">{{ item.attachment }}</span>
+        <!-- Author -->
+        <template #item.author="{ item }">
+          {{ item.author }}
         </template>
         <!-- Actions -->
         <template #item.actions="{ item }">
@@ -254,12 +342,18 @@ const updateOptions = options => {
             </VMenu>
           </IconBtn>
         </template>
+
         <template #bottom>
           <VDivider />
+          
           <div class="d-flex align-center justify-space-between flex-wrap gap-3 pa-5 pt-3">
+            <p class="text-sm text-medium-emphasis mb-0">
+              {{ paginationMeta({ page, itemsPerPage }, totalArticle) }}
+            </p>
+            
             <VPagination
               v-model="page"
-              :length="Math.min(Math.ceil(totalArticle / itemsPerPage), 5)"
+              :length="Math.ceil(totalArticle / itemsPerPage)"
               :total-visible="$vuetify.display.xs ? 1 : Math.min(Math.ceil(totalArticle / itemsPerPage), 5)"
             >
               <template #prev="slotProps">

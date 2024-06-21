@@ -86,35 +86,32 @@ watch(props, () => {
       <!-- 👉 Title -->
       <VCardItem class="text-center">
         <VCardTitle class="text-h5">
-          {{ props.documentName ? 'Edit' : 'Add' }} Document
+          {{ props.documentName ? 'Edit' : 'Add' }} Gallery
         </VCardTitle>
         <VCardSubtitle>
-          {{ props.documentName ? 'Edit' : 'Add' }} document as per your requirements.
+          {{ props.documentName ? 'Edit' : 'Add' }} gallery as per your requirements.
         </VCardSubtitle>
       </VCardItem>
 
       <VCardText class="mt-1">
         <VForm>
-          <!-- 👉 Document category -->
           <div class="d-flex align-end gap-3 mb-3">
             <AppSelect
               v-model="category"
-              placeholder="Select Category"
+              placeholder="Select Asset"
               :rules="[requiredValidator]"
-              label="Category"
-              :items="['Rules', 'Regulation']"
+              label="Asset"
+              :items="['Picture', 'Document', 'video', 'audio']"
             />
-
             <!-- //👉 - Document title -->
             <AppTextField
               v-model="currentDocumentName"
               density="compact"
               :rules="[requiredValidator]"
-              label="Title"
-              placeholder="Enter Document Title"
+              label="Name"
+              placeholder="e.g. Holiday Photo"
             />
           </div>
-          <!-- <VCheckbox label="Set as core document" /> -->
         </VForm>
       </VCardText>
 
@@ -203,38 +200,7 @@ watch(props, () => {
           </div>
         </div>
       </VCardText>
-      
-      <!-- //👉 - Description -->
-      <VCardText>
-        <span class="mb-1">Description (optional)</span>
-        <TiptapEditor
-          v-model="content"
-          placeholder="Product Description"
-          class="border rounded"
-        />
-      </VCardText>
-
-      <VCardText class="mt-1">
-        <VForm>
-          <!-- 👉 Start Date -->
-          <div>
-            <AppDateTimePicker
-              v-model="StartDate"
-              label="Start Date"
-              placeholder="Select date and time"
-              :config="{ enableTime: true, dateFormat: 'Y-m-d H:i' }"
-            />
-
-            <!-- //👉 - End Date -->
-            <AppDateTimePicker
-              v-model="EndDate"
-              label="End Date"
-              placeholder="Select date and time"
-              :config="{ enableTime: true, dateFormat: 'Y-m-d H:i' }"
-            />
-          </div>
-        </VForm>
-      </VCardText>
+      <!-- //👉 - Button Submit & Cancel -->
       <div class="d-flex align-center justify-center gap-3 mt-6 mb-15">
         <VBtn @click="onSubmit">
           Submit
