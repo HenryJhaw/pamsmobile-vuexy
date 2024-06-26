@@ -1,8 +1,8 @@
 <script setup>
-import { ref, watch } from 'vue'
-import { VDataTableServer } from 'vuetify/labs/VDataTable'
 import avatar1 from '@images/avatars/avatar-1.png'
 import avatar2 from '@images/avatars/avatar-2.png'
+import { ref, watch } from 'vue'
+import { VDataTableServer } from 'vuetify/labs/VDataTable'
 
 const widgetData = ref([
   {
@@ -124,6 +124,16 @@ const paginationMeta = (pagination, totalItems) => {
 
 <template>
   <div>
+    <VRow>
+      <VCol cols="12">
+        <h4 class="text-h4">
+          Occupants
+        </h4>
+        <p>
+          A useful tool for managing occupant management, as well as customizing the appearance.
+        </p>
+      </VCol>
+    </VRow>
     <VCard class="mb-6">
       <VCardText>
         <VRow>
@@ -224,7 +234,7 @@ const paginationMeta = (pagination, totalItems) => {
           <!-- Search -->
           <AppTextField
             v-model="searchQuery"
-            placeholder="Search Document"
+            placeholder="Search Occupant"
             density="compact"
             style="inline-size: 200px;"
             class="me-3"
