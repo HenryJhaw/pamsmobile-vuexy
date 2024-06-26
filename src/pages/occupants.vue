@@ -51,8 +51,8 @@ const headers = [
   },
 ]
 
-//category options
-const selectedCategory = ref()
+// category options
+const selectedRole = ref()
 const searchQuery = ref('')
 const selectedStatus = ref()
 
@@ -197,9 +197,9 @@ const paginationMeta = (pagination, totalItems) => {
             sm="6"
           >
             <AppSelect
-              v-model="selectedCategory"
-              placeholder="Select Category"
-              :items="categories"
+              v-model="selectedRole"
+              placeholder="Select Role"
+              :items="role"
               clearable
               clear-icon="tabler-x"
             />
@@ -209,9 +209,9 @@ const paginationMeta = (pagination, totalItems) => {
             sm="6"
           >
             <AppSelect
-              v-model="selectedCategory"
+              v-model="selectedStatus"
               placeholder="Select Status"
-              :items="categories"
+              :items="status"
               clearable
               clear-icon="tabler-x"
             />
@@ -239,28 +239,49 @@ const paginationMeta = (pagination, totalItems) => {
         </div>
       </div>
       <VDivider class="mt-4" />
+      
+      <!-- // 👉 (Table) -->
       <VDataTableServer
         v-model:items-per-page="itemsPerPage"
         v-model:page="page"
         :headers="headers"
-        show-select
         :items="users"
         :items-length="totalUser"
+        expand-on-click
         class="text-no-wrap"
         @update:options="updateOptions"
       >
+        <!-- Expanded Row Data -->
+        <template #expanded-row="slotProps">
+          <tr class="v-data-table__tr">
+            <td :colspan="headers.length">
+              <div class="d-flex flex-wrap">
+                <VChip class="mx-1 my-1">
+                  Unit 1 {{ slotProps.item.city }}
+                </VChip>
+                <VChip class="mx-1 my-1">
+                  Unit 2 {{ slotProps.item.experience }}
+                </VChip>
+                <VChip class="mx-1 my-1">
+                  Unit 3 {{ slotProps.item.post }}
+                </VChip>
+              </div>
+            </td>
+          </tr>
+        </template>
         <!-- User -->
         <template #item.user="{ item }">
           <div class="d-flex align-items-center">
-            <VAvatar
+            <img
               :src="item.avatar"
-              size="20"
+              alt="Avatar"
+              style=" border-radius: 50%; block-size: 36px; inline-size: 36px; object-fit: cover;"
               class="me-3"
-            />
+            >
             <img
               :src="item.card"
-              alt="Rectangle"
-              style=" block-size: 36px;inline-size: 50px; object-fit: cover;"
+              alt="Card"
+              style="block-size: 36px; inline-size: 50px; object-fit: cover;"
               class="me-3"
             >
             <div class="d-flex flex-column">
@@ -340,6 +361,6 @@ const paginationMeta = (pagination, totalItems) => {
           </div>
         </template>
       </VDataTableServer>
-    </vcard>
+    </VCard>
   </div>
 </template>
