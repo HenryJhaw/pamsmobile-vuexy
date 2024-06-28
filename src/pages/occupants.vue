@@ -35,6 +35,7 @@ const headers = [
   {
     title: '',
     key: 'data-table-expand',
+    width: '10',
   },
   {
     title: 'User',
@@ -52,6 +53,7 @@ const headers = [
     title: 'Actions',
     key: 'actions',
     sortable: false,
+    align: 'end',
   },
 ]
 

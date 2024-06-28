@@ -48,11 +48,14 @@ const headers = [
   {
     title: 'Status',
     key: 'status',
+    width: '80',
   },
   {
     title: 'Actions',
     key: 'actions',
     sortable: false,
+    width: '100',
+    align: 'end',
   },
 ]
 

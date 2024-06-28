@@ -29,19 +29,29 @@ const headers = [
   {
     title: 'Category',
     key: 'category',
+    width: '10',
   },
   {
-    title: 'Published Date',
-    key: 'published_date',
+    title: 'Since',
+    key: 'since',
+    width: '30',
   },
   {
-    title: 'Author',
-    key: 'author',
+    title: 'Until',
+    key: 'until',
+    width: '50',
+  },
+  {
+    title: 'Attachment',
+    key: 'attachment',
+    width: '70',
   },
   {
     title: 'Actions',
     key: 'actions',
     sortable: false,
+    width: '100',
+    align: 'end',
   },
 ]
 
@@ -60,87 +70,99 @@ const isAddArticleDialogVisible = ref(false)
 const allArticles = ref([
   {
     id: 1,
-    title: 'Article 1',
-    category: 'Tech',
-    published_date: '2023-01-01',
-    author: 'Author 1',
+    title: 'Document 1',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
   },
   {
     id: 2,
-    title: 'Article 2',
-    category: 'Health',
-    published_date: '2023-02-01',
-    author: 'Author 2',
+    title: 'Document 2',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
   },
   {
     id: 3,
-    title: 'Article 3',
-    category: 'Tech',
-    published_date: '2023-03-01',
-    author: 'Author 1',
+    title: 'Document 3',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
   },
   {
     id: 4,
-    title: 'Article 4',
-    category: 'Health',
-    published_date: '2023-04-01',
-    author: 'Author 2',
+    title: 'Document 4',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
   },
   {
     id: 5,
-    title: 'Article 5',
-    category: 'Tech',
-    published_date: '2023-05-01',
-    author: 'Author 1',
+    title: 'Document 5',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
   },
   {
     id: 6,
-    title: 'Article 6',
-    category: 'Health',
-    published_date: '2023-06-01',
-    author: 'Author 2',
+    title: 'Document 6',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
   },
   {
     id: 7,
-    title: 'Article 7',
-    category: 'Tech',
-    published_date: '2023-07-01',
-    author: 'Author 1',
+    title: 'Document 7',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
   },
   {
     id: 8,
-    title: 'Article 8',
-    category: 'Health',
-    published_date: '2023-08-01',
-    author: 'Author 2',
+    title: 'Document 8',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
   },
   {
     id: 9,
-    title: 'Article 9',
-    category: 'Tech',
-    published_date: '2023-09-01',
-    author: 'Author 1',
+    title: 'Document 9',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
   },
   {
     id: 10,
-    title: 'Article 10',
-    category: 'Health',
-    published_date: '2023-10-01',
-    author: 'Author 2',
+    title: 'Document 10',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
   },
   {
     id: 11,
-    title: 'Article 11',
-    category: 'Tech',
-    published_date: '2023-11-01',
-    author: 'Author 1',
+    title: 'Document 11',
+    category: 'Category 1',
+    since: '2023-01-01',
+    until: '2023-12-31',
+    attachment: '10 Attachment',
   },
   {
     id: 12,
-    title: 'Article 12',
-    category: 'Health',
-    published_date: '2023-12-01',
-    author: 'Author 2',
+    title: 'Document 12',
+    category: 'Category 2',
+    since: '2023-02-01',
+    until: '2023-11-30',
+    attachment: '2 Attachment',
   },
 ])
 
@@ -314,13 +336,17 @@ const paginationMeta = (pagination, totalItems) => {
         <template #item.category="{ item }">
           {{ item.category }}
         </template>
-        <!-- Published Date -->
-        <template #item.published_date="{ item }">
-          {{ new Date(item.published_date).toDateString() }}
+        <!-- Since -->
+        <template #item.since="{ item }">
+          {{ new Date(item.since).toDateString() }}
         </template>
-        <!-- Author -->
-        <template #item.author="{ item }">
-          {{ item.author }}
+        <!-- Until -->
+        <template #item.until="{ item }">
+          {{ new Date(item.until).toDateString() }}
+        </template>
+        <!-- Attachment -->
+        <template #item.attachment="{ item }">
+          <span class="text-body-1 font-weight-medium text-high-emphasis">{{ item.attachment }}</span>
         </template>
         <!-- Actions -->
         <template #item.actions="{ item }">

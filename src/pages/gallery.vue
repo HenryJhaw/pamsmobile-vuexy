@@ -33,11 +33,14 @@ const headers = [
   {
     title: 'Gallery',
     key: 'gallery',
+    width: '80',
   },
   {
     title: 'Actions',
     key: 'actions',
     sortable: false,
+    width: '100',
+    align: 'end',
   },
 ]
 
@@ -205,7 +208,6 @@ const paginationMeta = (pagination, totalItems) => {
         v-model:items-per-page="itemsPerPage"
         v-model:page="page"
         :headers="headers"
-        show-select
         :items="galleries"
         :items-length="totalGallery"
         class="text-no-wrap"

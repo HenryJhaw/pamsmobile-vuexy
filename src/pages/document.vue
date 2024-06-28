@@ -29,23 +29,29 @@ const headers = [
   {
     title: 'Category',
     key: 'category',
+    width: '10',
   },
   {
     title: 'Since',
     key: 'since',
+    width: '30',
   },
   {
     title: 'Until',
     key: 'until',
+    width: '50',
   },
   {
     title: 'Attachment',
     key: 'attachment',
+    width: '70',
   },
   {
     title: 'Actions',
     key: 'actions',
     sortable: false,
+    width: '100',
+    align: 'end',
   },
 ]
 
