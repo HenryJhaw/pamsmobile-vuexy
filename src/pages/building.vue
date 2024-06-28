@@ -1,5 +1,7 @@
 <script setup>
-import AddEditGalleryDialog from '@/components/dialogs/AddEditGalleryDialog.vue'
+import avatar1 from '@images/avatars/avatar-1.png'
+import avatar2 from '@images/avatars/avatar-2.png'
+import AddEditBuildingDialog from '@/components/dialogs/AddEditBuildingDialog.vue'
 import { ref, watch } from 'vue'
 import { VDataTableServer } from 'vuetify/labs/VDataTable'
 
@@ -47,15 +49,15 @@ const isAddGalleryDialogVisible = ref(false)
 const allBuildings = ref([
   {
     id: 1,
-    code: 'Beautiful landscape',
-    name: 'landscape.jpg',
-    view: '',
+    code: 'VIC',
+    name: 'Tower Leonida',
+    view: avatar1,
   },
   {
     id: 2,
-    code: 'City skyline',
-    name: 'city.jpg',
-    view: '',
+    code: 'LEO',
+    name: 'Tower Leonida',
+    view: avatar2,
   },
 
   // Add more mock data as needed
@@ -80,7 +82,7 @@ const updateOptions = options => {
 watch([page, itemsPerPage], fetchBuildings, { immediate: true })
 
 const deleteBuilding = id => {
-  const index = allBuildings.value.findIndex(gallery => gallery.id === id)
+  const index = allBuildings.value.findIndex(building => building.id === id)
   if (index !== -1) {
     allBuildings.value.splice(index, 1)
     totalBuilding.value = allBuildings.value.length
@@ -116,7 +118,7 @@ const paginationMeta = (pagination, totalItems) => {
             >
               <div
                 class="d-flex justify-space-between"
-                :class="$vuetify.display.xs ? 'gallery-widget' : $vuetify.display.sm ? id < 2 ? 'gallery-widget' : '' : ''"
+                :class="$vuetify.display.xs ? 'building-widget' : $vuetify.display.sm ? id < 2 ? 'building-widget' : '' : ''"
               >
                 <div class="d-flex flex-column gap-y-1">
                   <div class="text-body-1 font-weight-medium text-capitalize">
@@ -169,7 +171,7 @@ const paginationMeta = (pagination, totalItems) => {
           <!-- Search -->
           <AppTextField
             v-model="searchQuery"
-            placeholder="Search Gallery"
+            placeholder="Search building"
             density="compact"
             style="inline-size: 200px;"
             class="me-3"
@@ -183,10 +185,24 @@ const paginationMeta = (pagination, totalItems) => {
           />
           <VBtn
             color="primary"
+            prepend-icon="tabler-download"
+            @click="isAddGalleryDialogVisible = true"
+          >
+            Export
+          </VBtn>
+          <VBtn
+            color="primary"
+            prepend-icon="tabler-upload"
+            @click="isAddGalleryDialogVisible = true"
+          >
+            Import
+          </VBtn>
+          <VBtn
+            color="primary"
             prepend-icon="tabler-plus"
             @click="isAddGalleryDialogVisible = true"
           >
-            Add Gallery
+            Add building
           </VBtn>
         </div>
       </div>
@@ -202,24 +218,23 @@ const paginationMeta = (pagination, totalItems) => {
         class="text-no-wrap"
         @update:options="updateOptions"
       >
-        <!-- Descriptions -->
-        <template #item.descriptions="{ item }">
-          {{ item.descriptions }}
+        <!-- Code -->
+        <template #item.code="{ item }">
+          {{ item.code }}
         </template>
-        <!-- Filename -->
-        <template #item.filename="{ item }">
-          {{ item.filename }}
+        <!-- Name -->
+        <template #item.name="{ item }">
+          {{ item.name }}
         </template>
-        <!-- Gallery -->
-        <template #item.gallery="{ item }">
+        <!-- View -->
+        <template #item.view="{ item }">
           <div class="d-flex align-center gap-x-2">
-            <VAvatar
-              v-if="item.image"
-              size="38"
-              variant="tonal"
-              rounded
-              :image="item.image"
-            />
+            <img
+              :src="item.view"
+              alt="View"
+              style="block-size: 36px; inline-size: 50px; object-fit: cover;"
+              class="me-3"
+            >
           </div>
         </template>
         <!-- Actions -->
@@ -278,12 +293,12 @@ const paginationMeta = (pagination, totalItems) => {
         </template>
       </VDataTableServer>
     </VCard>
-    <AddEditGalleryDialog v-model:is-dialog-visible="isAddGalleryDialogVisible" />
+    <AddEditBuildingDialog v-model:is-dialog-visible="isAddGalleryDialogVisible" />
   </div>
 </template>
 
 <style lang="scss" scoped>
-.gallery-widget {
+.building-widget {
   border-block-end: 1px solid rgba(var(--v-theme-on-surface), var(--v-border-opacity));
   padding-block-end: 1rem;
 }

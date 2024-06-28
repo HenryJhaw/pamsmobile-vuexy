@@ -153,87 +153,101 @@ watch(props, () => {
         </VForm>
       </VCardText>
       
+      <!-- 👉 Contact and Password -->
       <VCardText class="mt-1">
         <VForm>
-          <!-- 👉 Contact -->
-          <div class="d-flex align-end gap-3 mb-3">
-            <AppTextField
-              v-model="currentDocumentName"
-              density="compact"
-              :rules="[requiredValidator]"
-              label="Contact"
-              placeholder="E.g. 08111222333"
-            />
-            <!-- //👉 - Password -->
-            <AppTextField
-              v-model="password"
-              label="Password"
-              :type="isPasswordVisible ? 'text' : 'password'"
-              :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
-              placeholder="Enter Password"
-              :rules="[requiredValidator]"
-              autocomplete="on"
-              @click:append-inner="isPasswordVisible = !isPasswordVisible"
-            />
-          </div>
-          <!-- <VCheckbox label="Set as core document" /> -->
-        </VForm>
-      </VCardText>
-
-      <VCardText class="mt-1">
-        <VForm>
-          <!-- 👉 Staff Department -->
-          <div class="d-flex align-end gap-3 mb-3">
-            <AppSelect
-              v-model="selectedStaffDepartment"
-              placeholder="Select Department"
-              :rules="[requiredValidator]"
-              label="Staff Department"
-              :items="['Rules', 'Regulation']"
-              clearable
-              clear-icon="tabler-x"
-            />
-
-            <!-- //👉 - Staff Code -->
-            <AppSelect
-              v-model="selectedStaffCode"
-              placeholder="Select Staff Code"
-              :rules="[requiredValidator]"
-              label="Staff Code"
-              :items="['SEC', 'PMO', 'TRO']"
-              clearable
-              clear-icon="tabler-x"
-            />
+          <div
+            class="d-flex align-end gap-3 mb-3"
+            style="display: flex; inline-size: 100%;"
+          >
+            <div style="inline-size: 50%;">
+              <AppTextField
+                v-model="currentDocumentName"
+                density="compact"
+                :rules="[requiredValidator]"
+                label="Contact"
+                placeholder="E.g. 08111222333"
+              />
+            </div>
+            <div style="inline-size: 50%;">
+              <AppTextField
+                v-model="password"
+                label="Password"
+                :type="isPasswordVisible ? 'text' : 'password'"
+                :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
+                placeholder="Enter Password"
+                :rules="[requiredValidator]"
+                autocomplete="on"
+                @click:append-inner="isPasswordVisible = !isPasswordVisible"
+              />
+            </div>
           </div>
         </VForm>
       </VCardText>
 
+      <!-- 👉 Staff Department and Staff Code -->
       <VCardText class="mt-1">
         <VForm>
-          <!-- 👉 Staff Role -->
-          <div class="d-flex align-end gap-3 mb-3">
-            <AppSelect
-              v-model="selectedStaffRole"
-              placeholder="Select Staff Role"
-              :rules="[requiredValidator]"
-              label="Staff Role"
-              :items="['Security', 'Property Manager', 'Tenant Relation']"
-              clearable
-              clear-icon="tabler-x"
-            />
-
-            <!-- //👉 - Status -->
-            <AppSelect
-              v-model="selectedStatus"
-              placeholder="Select Status"
-              :rules="[requiredValidator]"
-              label="Status"
-              :items="['Active', 'Pending', 'Disable']"
-              clearable
-              clear-icon="tabler-x"
-            />
+          <div
+            class="d-flex align-end gap-3 mb-3"
+            style="display: flex; inline-size: 100%;"
+          >
+            <div style="inline-size: 50%;">
+              <AppSelect
+                v-model="selectedStaffDepartment"
+                placeholder="Select Department"
+                :rules="[requiredValidator]"
+                label="Staff Department"
+                :items="['Rules', 'Regulation']"
+                clearable
+                clear-icon="tabler-x"
+              />
+            </div>
+            <div style="inline-size: 50%;">
+              <AppSelect
+                v-model="selectedStaffCode"
+                placeholder="Select Staff Code"
+                :rules="[requiredValidator]"
+                label="Staff Code"
+                :items="['SEC', 'PMO', 'TRO']"
+                clearable
+                clear-icon="tabler-x"
+              />
+            </div>
           </div>
-          <!-- <VCheckbox label="Set as core document" /> -->
+        </VForm>
+      </VCardText>
+
+      <!-- 👉 Staff Role and Status -->
+      <VCardText class="mt-1">
+        <VForm>
+          <div
+            class="d-flex align-end gap-3 mb-3"
+            style="display: flex; inline-size: 100%;"
+          >
+            <div style="inline-size: 50%;">
+              <AppSelect
+                v-model="selectedStaffRole"
+                placeholder="Select Staff Role"
+                :rules="[requiredValidator]"
+                label="Staff Role"
+                :items="['Security', 'Property Manager', 'Tenant Relation']"
+                clearable
+                clear-icon="tabler-x"
+              />
+            </div>
+            <div style="inline-size: 50%;">
+              <AppSelect
+                v-model="selectedStatus"
+                placeholder="Select Status"
+                :rules="[requiredValidator]"
+                label="Status"
+                :items="['Active', 'Pending', 'Disable']"
+                clearable
+                clear-icon="tabler-x"
+              />
+            </div>
+          </div>
         </VForm>
       </VCardText>
 

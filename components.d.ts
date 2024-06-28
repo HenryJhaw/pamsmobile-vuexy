@@ -10,6 +10,7 @@ declare module 'vue' {
     AddAuthenticatorAppDialog: typeof import('./src/components/dialogs/AddAuthenticatorAppDialog.vue')['default']
     AddEditAddressDialog: typeof import('./src/components/dialogs/AddEditAddressDialog.vue')['default']
     AddEditArticleDialog: typeof import('./src/components/dialogs/AddEditArticleDialog.vue')['default']
+    AddEditBuildingDialog: typeof import('./src/components/dialogs/AddEditBuildingDialog.vue')['default']
     AddEditDocumentDialog: typeof import('./src/components/dialogs/AddEditDocumentDialog.vue')['default']
     AddEditGalleryDialog: typeof import('./src/components/dialogs/AddEditGalleryDialog.vue')['default']
     AddEditMembersDialog: typeof import('./src/components/dialogs/AddEditMembersDialog.vue')['default']
