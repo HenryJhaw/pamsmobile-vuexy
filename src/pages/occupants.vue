@@ -33,6 +33,10 @@ const widgetData = ref([
 
 const headers = [
   {
+    title: '',
+    key: 'data-table-expand',
+  },
+  {
     title: 'User',
     key: 'user',
   },
@@ -258,7 +262,6 @@ const paginationMeta = (pagination, totalItems) => {
         :items="users"
         :items-length="totalUser"
         expand-on-click
-        class="text-no-wrap"
         @update:options="updateOptions"
       >
         <!-- Expanded Row Data -->
