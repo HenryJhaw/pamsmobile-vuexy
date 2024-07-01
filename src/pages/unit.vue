@@ -122,6 +122,16 @@ const paginationMeta = (pagination, totalItems) => {
 
 <template>
   <div>
+    <VRow>
+      <VCol cols="12">
+        <h4 class="text-h4">
+          Unit
+        </h4>
+        <p>
+          A useful tool for managing actor management.
+        </p>
+      </VCol>
+    </VRow>
     <!-- Widgets -->
     <VCard class="mb-6">
       <VCardText>

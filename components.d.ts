@@ -8,9 +8,11 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AddAuthenticatorAppDialog: typeof import('./src/components/dialogs/AddAuthenticatorAppDialog.vue')['default']
+    AddEditActorDialog: typeof import('./src/components/dialogs/AddEditActorDialog.vue')['default']
     AddEditAddressDialog: typeof import('./src/components/dialogs/AddEditAddressDialog.vue')['default']
     AddEditArticleDialog: typeof import('./src/components/dialogs/AddEditArticleDialog.vue')['default']
     AddEditBuildingDialog: typeof import('./src/components/dialogs/AddEditBuildingDialog.vue')['default']
+    AddEditDepartmentDialog: typeof import('./src/components/dialogs/AddEditDepartmentDialog.vue')['default']
     AddEditDocumentDialog: typeof import('./src/components/dialogs/AddEditDocumentDialog.vue')['default']
     AddEditFloorDialog: typeof import('./src/components/dialogs/AddEditFloorDialog.vue')['default']
     AddEditGalleryDialog: typeof import('./src/components/dialogs/AddEditGalleryDialog.vue')['default']

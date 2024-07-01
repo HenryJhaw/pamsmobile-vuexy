@@ -17,7 +17,7 @@ const page = ref(1)
 const sortBy = ref()
 const orderBy = ref()
 
-const isAddEditBuildingDialogVisible = ref(false)
+const isAddEditActorDialogVisible = ref(false)
 
 // Mock data for the data table
 const allActors = ref([
@@ -74,6 +74,16 @@ const paginationMeta = (pagination, totalItems) => {
 
 <template>
   <div>
+    <VRow>
+      <VCol cols="12">
+        <h4 class="text-h4">
+          Actor
+        </h4>
+        <p>
+          A useful tool for managing actor management.
+        </p>
+      </VCol>
+    </VRow>
     <!-- actors -->
     <VCard>
       <VCardText />
@@ -109,7 +119,7 @@ const paginationMeta = (pagination, totalItems) => {
           <VBtn
             color="primary"
             prepend-icon="tabler-plus"
-            @click="isAddEditBuildingDialogVisible = true"
+            @click="isAddEditActorDialogVisible = true"
           >
             Add Actor
           </VBtn>
@@ -191,6 +201,6 @@ const paginationMeta = (pagination, totalItems) => {
         </template>
       </VDataTableServer>
     </VCard>
-    <AddEditActorDialog v-model:is-dialog-visible="isAddEditBuildingDialogVisible" />
+    <AddEditActorDialog v-model:is-dialog-visible="isAddEditActorDialogVisible" />
   </div>
 </template>
