@@ -48,9 +48,16 @@ onChange(selectedFiles => {
 })
 useDropZone(dropZoneRef, onDrop)
 
+const category = [
+  'Foo',
+  'Bar',
+  'Fizz',
+  'Buzz',
+]
 
 const currentDocumentName = ref('')
-const category = ref('')
+
+// const category = ref('')
 const StartDate = ref('')
 const EndDate = ref('')
 const content = ref('')
@@ -93,28 +100,32 @@ watch(props, () => {
         </VCardSubtitle>
       </VCardItem>
 
+      <!-- 👉 Document category and Name -->
       <VCardText class="mt-1">
         <VForm>
-          <!-- 👉 Document category -->
-          <div class="d-flex align-end gap-3 mb-3">
-            <AppSelect
-              v-model="category"
-              placeholder="Select Category"
-              :rules="[requiredValidator]"
-              label="Category"
-              :items="['Rules', 'Regulation']"
-            />
-
-            <!-- //👉 - Document title -->
-            <AppTextField
-              v-model="currentDocumentName"
-              density="compact"
-              :rules="[requiredValidator]"
-              label="Title"
-              placeholder="Enter Document Title"
-            />
+          <div
+            class="d-flex align-end gap-3 mb-3"
+            style="display: flex; inline-size: 100%;"
+          >
+            <div style="inline-size: 50%;">
+              <AppSelect
+                :items="category"
+                :menu-props="{ transition: 'scroll-y-transition' }"
+                label="Category"
+                placeholder="Select Category"
+                :rules="[requiredValidator]"
+              />
+            </div>
+            <div style="inline-size: 50%;">
+              <AppTextField
+                v-model="currentDocumentName"
+                density="compact"
+                :rules="[requiredValidator]"
+                label="Title"
+                placeholder="Enter Document Title"
+              />
+            </div>
           </div>
-          <!-- <VCheckbox label="Set as core document" /> -->
         </VForm>
       </VCardText>
 
@@ -209,29 +220,34 @@ watch(props, () => {
         <span class="mb-1">Description (optional)</span>
         <TiptapEditor
           v-model="content"
-          placeholder="Product Description"
+          placeholder="Document Description"
           class="border rounded"
         />
       </VCardText>
 
+      <!-- //👉 - Start date and End Date -->
       <VCardText class="mt-1">
         <VForm>
-          <!-- 👉 Start Date -->
-          <div>
-            <AppDateTimePicker
-              v-model="StartDate"
-              label="Start Date"
-              placeholder="Select date and time"
-              :config="{ enableTime: true, dateFormat: 'Y-m-d H:i' }"
-            />
-
-            <!-- //👉 - End Date -->
-            <AppDateTimePicker
-              v-model="EndDate"
-              label="End Date"
-              placeholder="Select date and time"
-              :config="{ enableTime: true, dateFormat: 'Y-m-d H:i' }"
-            />
+          <div
+            class="d-flex align-end gap-3 mb-3"
+            style="display: flex; inline-size: 100%;"
+          >
+            <div style="inline-size: 50%;">
+              <AppDateTimePicker
+                v-model="StartDate"
+                label="Start Date"
+                placeholder="Select date and time"
+                :config="{ enableTime: true, dateFormat: 'Y-m-d H:i' }"
+              />
+            </div>
+            <div style="inline-size: 50%;">
+              <AppDateTimePicker
+                v-model="EndDate"
+                label="End Date"
+                placeholder="Select date and time"
+                :config="{ enableTime: true, dateFormat: 'Y-m-d H:i' }"
+              />
+            </div>
           </div>
         </VForm>
       </VCardText>

@@ -43,7 +43,7 @@ const page = ref(1)
 const sortBy = ref()
 const orderBy = ref()
 
-const isAddGalleryDialogVisible = ref(false)
+const isAddEditBuildingDialogVisible = ref(false)
 
 // Mock data for the data table
 const allBuildings = ref([
@@ -186,21 +186,19 @@ const paginationMeta = (pagination, totalItems) => {
           <VBtn
             color="primary"
             prepend-icon="tabler-download"
-            @click="isAddGalleryDialogVisible = true"
           >
             Export
           </VBtn>
           <VBtn
             color="primary"
             prepend-icon="tabler-upload"
-            @click="isAddGalleryDialogVisible = true"
           >
             Import
           </VBtn>
           <VBtn
             color="primary"
             prepend-icon="tabler-plus"
-            @click="isAddGalleryDialogVisible = true"
+            @click="isAddEditBuildingDialogVisible = true"
           >
             Add building
           </VBtn>
@@ -232,7 +230,7 @@ const paginationMeta = (pagination, totalItems) => {
             <img
               :src="item.view"
               alt="View"
-              style="block-size: 36px; inline-size: 50px; object-fit: cover;"
+              style="border-radius: 10%; block-size: 36px; inline-size: 55px; object-fit: cover;"
               class="me-3"
             >
           </div>
@@ -293,7 +291,7 @@ const paginationMeta = (pagination, totalItems) => {
         </template>
       </VDataTableServer>
     </VCard>
-    <AddEditBuildingDialog v-model:is-dialog-visible="isAddGalleryDialogVisible" />
+    <AddEditBuildingDialog v-model:is-dialog-visible="isAddEditBuildingDialogVisible" />
   </div>
 </template>
 

@@ -166,6 +166,13 @@ const allArticles = ref([
   },
 ])
 
+const category = [
+  'Foo',
+  'Bar',
+  'Fizz',
+  'Buzz',
+]
+
 const articles = ref([])
 const totalArticle = ref(allArticles.value.length)
 
@@ -279,9 +286,10 @@ const paginationMeta = (pagination, totalItems) => {
             sm="4"
           >
             <AppSelect
-              v-model="selectedCategory"
+              :items="category"
+              :menu-props="{ transition: 'scroll-y-transition' }"
+              label="Category"
               placeholder="Select Category"
-              :items="categories"
               clearable
               clear-icon="tabler-x"
             />
@@ -322,7 +330,6 @@ const paginationMeta = (pagination, totalItems) => {
         v-model:items-per-page="itemsPerPage"
         v-model:page="page"
         :headers="headers"
-        show-select
         :items="articles"
         :items-length="totalArticle"
         class="text-no-wrap"

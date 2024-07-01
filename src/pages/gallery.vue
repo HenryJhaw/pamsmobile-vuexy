@@ -1,4 +1,6 @@
 <script setup>
+import avatar1 from '@images/avatars/avatar-1.png'
+import avatar2 from '@images/avatars/avatar-2.png'
 import AddEditGalleryDialog from '@/components/dialogs/AddEditGalleryDialog.vue'
 import { ref, watch } from 'vue'
 import { VDataTableServer } from 'vuetify/labs/VDataTable'
@@ -60,13 +62,13 @@ const allGalleries = ref([
     id: 1,
     descriptions: 'Beautiful landscape',
     filename: 'landscape.jpg',
-    gallery: 'Nature',
+    gallery: avatar1,
   },
   {
     id: 2,
     descriptions: 'City skyline',
     filename: 'city.jpg',
-    gallery: 'Urban',
+    gallery: avatar2,
   },
 
   // Add more mock data as needed
@@ -224,13 +226,12 @@ const paginationMeta = (pagination, totalItems) => {
         <!-- Gallery -->
         <template #item.gallery="{ item }">
           <div class="d-flex align-center gap-x-2">
-            <VAvatar
-              v-if="item.image"
-              size="38"
-              variant="tonal"
-              rounded
-              :image="item.image"
-            />
+            <img
+              :src="item.gallery"
+              alt="View"
+              style=" border-radius: 10%;block-size: 36px; inline-size: 55px; object-fit: cover;"
+              class="me-3"
+            >
           </div>
         </template>
         <!-- Actions -->

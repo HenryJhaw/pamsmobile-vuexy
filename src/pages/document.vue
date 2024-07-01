@@ -168,6 +168,13 @@ const allDocuments = ref([
   // Add more mock data as needed
 ])
 
+const category = [
+  'Foo',
+  'Bar',
+  'Fizz',
+  'Buzz',
+]
+
 const documents = ref([])
 const totalDocument = ref(allDocuments.value.length)
 
@@ -281,9 +288,10 @@ const paginationMeta = (pagination, totalItems) => {
             sm="4"
           >
             <AppSelect
-              v-model="selectedCategory"
+              :items="category"
+              :menu-props="{ transition: 'scroll-y-transition' }"
+              label="Category"
               placeholder="Select Category"
-              :items="categories"
               clearable
               clear-icon="tabler-x"
             />

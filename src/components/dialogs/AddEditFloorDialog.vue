@@ -12,7 +12,7 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
-  documentName: {
+  floorName: {
     type: String,
     required: false,
     default: '',
@@ -21,15 +21,8 @@ const props = defineProps({
 
 const emit = defineEmits([
   'update:isDialogVisible',
-  'update:documentName',
+  'update:floorName',
 ])
-
-const assets = [
-  'Foo',
-  'Bar',
-  'Fizz',
-  'Buzz',
-]
 
 const dropZoneRef = ref()
 const fileData = ref([])
@@ -55,29 +48,31 @@ onChange(selectedFiles => {
 })
 useDropZone(dropZoneRef, onDrop)
 
+const buildings = [
+  'Foo',
+  'Bar',
+  'Fizz',
+  'Buzz',
+]
 
-const currentDocumentName = ref('')
+const currentFloorName = ref('')
 const category = ref('')
-const StartDate = ref('')
-const EndDate = ref('')
 const content = ref('')
 
 const onReset = () => {
   emit('update:isDialogVisible', false)
-  currentDocumentName.value = ''
+  currentFloorName.value = ''
   category.value = ''
-  StartDate.value = ''
-  EndDate.value = ''
   content.value = ''
 }
 
 const onSubmit = () => {
   emit('update:isDialogVisible', false)
-  emit('update:documentName', currentDocumentName.value)
+  emit('update:floorName', currentFloorName.value)
 }
 
 watch(props, () => {
-  currentDocumentName.value = props.documentName
+  currentFloorName.value = props.floorName
 })
 </script>
 
@@ -93,14 +88,25 @@ watch(props, () => {
       <!-- 👉 Title -->
       <VCardItem class="text-center">
         <VCardTitle class="text-h5">
-          {{ props.documentName ? 'Edit' : 'Add' }} Gallery
+          {{ props.floorName ? 'Edit' : 'Add' }} floor
         </VCardTitle>
         <VCardSubtitle>
-          {{ props.documentName ? 'Edit' : 'Add' }} gallery as per your requirements.
+          {{ props.floorName ? 'Edit' : 'Add' }} floor as per your requirements.
         </VCardSubtitle>
       </VCardItem>
 
-      <!-- //👉 - Asset and Name -->
+      <VCardText class="mt-1">
+        <AppSelect
+          :items="buildings"
+          :menu-props="{ transition: 'scroll-y-transition' }"
+          label="Selected Building"
+          placeholder="Select Building"
+          :rules="[requiredValidator]"
+          clearable
+          clear-icon="tabler-x"
+        />
+      </VCardText>
+      <!-- //👉 - floor Name and Identity -->
       <VCardText class="mt-1">
         <VForm>
           <div
@@ -108,28 +114,28 @@ watch(props, () => {
             style="display: flex; inline-size: 100%;"
           >
             <div style="inline-size: 50%;">
-              <AppSelect
-                :items="assets"
-                :menu-props="{ transition: 'scroll-y-transition' }"
-                label="Asset"
-                placeholder="Select Asset"
+              <AppTextField
+                v-model="currentFloorName"
+                density="compact"
                 :rules="[requiredValidator]"
+                label="floor Name"
+                placeholder="Enter floor Name"
               />
             </div>
             <div style="inline-size: 50%;">
               <AppTextField
-                v-model="currentDocumentName"
+                v-model="currentBuildingIdentity"
                 density="compact"
                 :rules="[requiredValidator]"
-                label="Name"
-                placeholder="e.g. Holiday Photo"
+                label="Identity"
+                placeholder="Enter floor Identity"
               />
             </div>
           </div>
         </VForm>
       </VCardText>
 
-      <!-- //👉 - Attachment -->
+      <!-- //👉 - Image floor -->
       <div class="d-flex flex-column align-center justify-center gap-5 mt-6 mb-15">
         <VAvatar
           color="grey-200"
@@ -151,9 +157,10 @@ watch(props, () => {
             icon="tabler-cloud-upload"
             class="d-sm-none"
           />
-          <span class="d-none d-sm-block">Upload file</span>
+          <span class="d-none d-sm-block">Upload new view</span>
         </VBtn>
       </div>
+
       <!-- //👉 - Button Submit & Cancel -->
       <div class="d-flex align-center justify-center gap-3 mt-6 mb-15">
         <VBtn @click="onSubmit">

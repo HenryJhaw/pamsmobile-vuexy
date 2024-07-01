@@ -57,6 +57,10 @@ export default [
             title: 'Role',
             to: 'role',
           },
+          {
+            title: 'Department',
+            to: 'department',
+          },
         ],
       },
     ],

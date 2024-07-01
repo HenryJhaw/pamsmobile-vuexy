@@ -296,7 +296,7 @@ const paginationMeta = (pagination, totalItems) => {
             <img
               :src="item.card"
               alt="Card"
-              style="block-size: 36px; inline-size: 50px; object-fit: cover;"
+              style="border-radius: 5%; block-size: 36px; inline-size: 55px; object-fit: cover;"
               class="me-3"
             >
             <div class="d-flex flex-column">
