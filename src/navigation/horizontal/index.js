@@ -51,6 +51,23 @@ export default [
     icon: { icon: 'tabler-settings' },
     children: [
       {
+        title: 'Option',
+        children: [
+          {
+            title: 'Actor',
+            to: 'actor',
+          },
+          {
+            title: 'Notification',
+            to: 'notification',
+          },
+          {
+            title: 'Mobile',
+            to: 'mobile',
+          },
+        ],
+      },
+      {
         title: 'Person',
         children: [
           {
@@ -60,6 +77,28 @@ export default [
           {
             title: 'Department',
             to: 'department',
+          },
+        ],
+      },
+      {
+        title: 'Subject',
+        children: [
+          {
+            title: 'Category',
+            to: 'category',
+          },
+        ],
+      },
+      {
+        title: 'Activity',
+        children: [
+          {
+            title: 'Sequence',
+            to: 'sequence',
+          },
+          {
+            title: 'Numbering',
+            to: 'numbering',
           },
         ],
       },
