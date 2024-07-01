@@ -20,6 +20,7 @@ declare module 'vue' {
     AddEditMembersDialog: typeof import('./src/components/dialogs/AddEditMembersDialog.vue')['default']
     AddEditPermissionDialog: typeof import('./src/components/dialogs/AddEditPermissionDialog.vue')['default']
     AddEditRoleDialog: typeof import('./src/components/dialogs/AddEditRoleDialog.vue')['default']
+    AddEditSequenceDialog: typeof import('./src/components/dialogs/AddEditSequenceDialog.vue')['default']
     AddEditUnitDialog: typeof import('./src/components/dialogs/AddEditUnitDialog.vue')['default']
     AddPaymentMethodDialog: typeof import('./src/components/dialogs/AddPaymentMethodDialog.vue')['default']
     AppAutocomplete: typeof import('./src/@core/components/app-form-elements/AppAutocomplete.vue')['default']
