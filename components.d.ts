@@ -12,6 +12,7 @@ declare module 'vue' {
     AddEditAddressDialog: typeof import('./src/components/dialogs/AddEditAddressDialog.vue')['default']
     AddEditArticleDialog: typeof import('./src/components/dialogs/AddEditArticleDialog.vue')['default']
     AddEditBuildingDialog: typeof import('./src/components/dialogs/AddEditBuildingDialog.vue')['default']
+    AddEditCategoryDialog: typeof import('./src/components/dialogs/AddEditCategoryDialog.vue')['default']
     AddEditDepartmentDialog: typeof import('./src/components/dialogs/AddEditDepartmentDialog.vue')['default']
     AddEditDocumentDialog: typeof import('./src/components/dialogs/AddEditDocumentDialog.vue')['default']
     AddEditFloorDialog: typeof import('./src/components/dialogs/AddEditFloorDialog.vue')['default']
