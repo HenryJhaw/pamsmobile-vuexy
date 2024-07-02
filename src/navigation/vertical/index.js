@@ -156,6 +156,16 @@ export default [
       },
     ],
   },
+  {
+    title: 'Enrollment',
+    to: 'enrollment',
+    icon: { icon: 'tabler-folder' },
+  },
+  {
+    title: 'Registration',
+    to: 'registration',
+    icon: { icon: 'tabler-folder' },
+  },
 
   //SECTION - SUBJECT DIRECTORY
   { heading: 'subject directory' },

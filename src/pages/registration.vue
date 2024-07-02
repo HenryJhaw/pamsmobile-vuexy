@@ -1,50 +1,54 @@
 <script setup>
-import AddEditDocumentDialog from '@/components/dialogs/AddEditDocumentDialog.vue'
+import AddEditMembersDialog from '@/components/dialogs/AddEditMembersDialog.vue'
+import avatar1 from '@images/avatars/avatar-1.png'
+import avatar2 from '@images/avatars/avatar-2.png'
 import { ref, watch } from 'vue'
 import { VDataTableServer } from 'vuetify/labs/VDataTable'
 
 const widgetData = ref([
   {
-    title: 'Gallery',
+    title: 'Online Users',
     value: '54',
-    icon: 'tabler-photo',
+    icon: 'tabler-world',
+    iconColor: 'info',
   },
   {
-    title: 'Document',
+    title: 'Active Users',
     value: '5',
-    icon: 'tabler-files',
+    icon: 'tabler-user-check',
+    iconColor: 'success',
   },
   {
-    title: 'Article',
+    title: 'Pending Users',
     value: '12',
-    icon: 'tabler-file-text',
+    icon: 'tabler-user-exclamation',
+    iconColor: 'warning',
+  },
+  {
+    title: 'Inactive Users',
+    value: '54',
+    icon: 'tabler-user-x',
+    iconColor: 'error',
   },
 ])
 
 const headers = [
   {
-    title: 'Title',
-    key: 'title',
+    title: 'User',
+    key: 'user',
   },
   {
-    title: 'Category',
-    key: 'category',
-    width: '10',
+    title: 'Role',
+    key: 'role',
   },
   {
-    title: 'Since',
-    key: 'since',
-    width: '30',
+    title: 'Code',
+    key: 'code',
   },
   {
-    title: 'Until',
-    key: 'until',
-    width: '50',
-  },
-  {
-    title: 'Attachment',
-    key: 'attachment',
-    width: '70',
+    title: 'Status',
+    key: 'status',
+    width: '80',
   },
   {
     title: 'Actions',
@@ -55,8 +59,10 @@ const headers = [
   },
 ]
 
-const selectedCategory = ref()
+// category options
+const selectedRole = ref()
 const searchQuery = ref('')
+const selectedStatus = ref()
 
 // Data table options
 const itemsPerPage = ref(10)
@@ -64,141 +70,55 @@ const page = ref(1)
 const sortBy = ref()
 const orderBy = ref()
 
-const isAddDocumentDialogVisible = ref(false)
+const isAddEditMembersDialogVisible = ref(false)
 
-// Mock data for the data table
-const allDocuments = ref([
+const allUsers = ref([
   {
     id: 1,
-    title: 'Document 1',
-    category: 'Category 1',
-    since: '2023-01-01',
-    until: '2023-12-31',
-    attachment: '10 Attachment',
+    user: 'user 1',
+    email: 'user1@email.com',
+    role: 'Owner',
+    code: 'SEC',
+    status: 'Active',
+    avatar: avatar1,
   },
   {
     id: 2,
-    title: 'Document 2',
-    category: 'Category 2',
-    since: '2023-02-01',
-    until: '2023-11-30',
-    attachment: '2 Attachment',
-  },
-  {
-    id: 3,
-    title: 'Document 3',
-    category: 'Category 1',
-    since: '2023-01-01',
-    until: '2023-12-31',
-    attachment: '10 Attachment',
-  },
-  {
-    id: 4,
-    title: 'Document 4',
-    category: 'Category 2',
-    since: '2023-02-01',
-    until: '2023-11-30',
-    attachment: '2 Attachment',
-  },
-  {
-    id: 5,
-    title: 'Document 5',
-    category: 'Category 1',
-    since: '2023-01-01',
-    until: '2023-12-31',
-    attachment: '10 Attachment',
-  },
-  {
-    id: 6,
-    title: 'Document 6',
-    category: 'Category 2',
-    since: '2023-02-01',
-    until: '2023-11-30',
-    attachment: '2 Attachment',
-  },
-  {
-    id: 7,
-    title: 'Document 7',
-    category: 'Category 1',
-    since: '2023-01-01',
-    until: '2023-12-31',
-    attachment: '10 Attachment',
-  },
-  {
-    id: 8,
-    title: 'Document 8',
-    category: 'Category 2',
-    since: '2023-02-01',
-    until: '2023-11-30',
-    attachment: '2 Attachment',
-  },
-  {
-    id: 9,
-    title: 'Document 9',
-    category: 'Category 1',
-    since: '2023-01-01',
-    until: '2023-12-31',
-    attachment: '10 Attachment',
-  },
-  {
-    id: 10,
-    title: 'Document 10',
-    category: 'Category 2',
-    since: '2023-02-01',
-    until: '2023-11-30',
-    attachment: '2 Attachment',
-  },
-  {
-    id: 11,
-    title: 'Document 11',
-    category: 'Category 1',
-    since: '2023-01-01',
-    until: '2023-12-31',
-    attachment: '10 Attachment',
-  },
-  {
-    id: 12,
-    title: 'Document 12',
-    category: 'Category 2',
-    since: '2023-02-01',
-    until: '2023-11-30',
-    attachment: '2 Attachment',
+    user: 'user 2',
+    email: 'user2@email.com',
+    role: 'Tenant',
+    code: 'SEC',
+    status: 'Inactive',
+    avatar: avatar2,
   },
 
   // Add more mock data as needed
 ])
 
-const category = [
-  'Foo',
-  'Bar',
-  'Fizz',
-  'Buzz',
-]
+const users = ref([])
+const totalUser = ref(allUsers.value.length)
 
-const documents = ref([])
-const totalDocument = ref(allDocuments.value.length)
-
-const fetchDocuments = () => {
+const fetchUsers = () => {
   const start = (page.value - 1) * itemsPerPage.value
   const end = start + itemsPerPage.value
 
-  documents.value = allDocuments.value.slice(start, end)
+  users.value = allUsers.value.slice(start, end)
 }
 
 const updateOptions = options => {
   page.value = options.page
   itemsPerPage.value = options.itemsPerPage
-  fetchDocuments()
+  fetchUsers()
 }
 
-watch([page, itemsPerPage], fetchDocuments, { immediate: true })
+watch([page, itemsPerPage], fetchUsers, { immediate: true })
 
 const deleteDocument = id => {
-  const index = allDocuments.value.findIndex(doc => doc.id === id)
+  const index = allUsers.value.findIndex(doc => doc.id === id)
   if (index !== -1) {
-    allDocuments.value.splice(index, 1)
-    totalDocument.value = allDocuments.value.length
-    fetchDocuments()
+    allUsers.value.splice(index, 1)
+    totalUser.value = allUsers.value.length
+    fetchUsers()
   }
 }
 
@@ -217,14 +137,13 @@ const paginationMeta = (pagination, totalItems) => {
     <VRow>
       <VCol cols="12">
         <h4 class="text-h4">
-          Document
+          Members
         </h4>
         <p>
-          A useful tool for managing actor management.
+          A useful tool for adding and managing members management, as well as customizing the appearance.
         </p>
       </VCol>
     </VRow>
-    <!-- Widgets -->
     <VCard class="mb-6">
       <VCardText>
         <VRow>
@@ -235,7 +154,7 @@ const paginationMeta = (pagination, totalItems) => {
             <VCol
               cols="12"
               sm="6"
-              md="4"
+              md="3"
               class="px-6"
             >
               <div
@@ -263,6 +182,7 @@ const paginationMeta = (pagination, totalItems) => {
                   </div>
                 </div>
                 <VAvatar
+                  :color="data.iconColor"
                   variant="tonal"
                   rounded
                   size="38"
@@ -284,24 +204,46 @@ const paginationMeta = (pagination, totalItems) => {
         </VRow>
       </VCardText>
     </VCard>
-
-    <!-- Documents -->
+    
+    <!-- Select Category -->
     <VCard
       title="Filters"
       class="mb-6"
     >
       <VCardText>
         <VRow>
-          <!-- Select Category -->
           <VCol
             cols="12"
             sm="4"
           >
             <AppSelect
-              :items="category"
-              :menu-props="{ transition: 'scroll-y-transition' }"
-              label="Category"
-              placeholder="Select Category"
+              v-model="selectedRole"
+              placeholder="Select Role"
+              :items="role"
+              clearable
+              clear-icon="tabler-x"
+            />
+          </VCol>
+          <VCol
+            cols="12"
+            sm="4"
+          >
+            <AppSelect
+              v-model="selectedStatus"
+              placeholder="Select Code"
+              :items="status"
+              clearable
+              clear-icon="tabler-x"
+            />
+          </VCol>
+          <VCol
+            cols="12"
+            sm="4"
+          >
+            <AppSelect
+              v-model="selectedStatus"
+              placeholder="Select Status"
+              :items="status"
               clearable
               clear-icon="tabler-x"
             />
@@ -314,7 +256,7 @@ const paginationMeta = (pagination, totalItems) => {
           <!-- Search -->
           <AppTextField
             v-model="searchQuery"
-            placeholder="Search Document"
+            placeholder="Search Member"
             density="compact"
             style="inline-size: 200px;"
             class="me-3"
@@ -329,43 +271,55 @@ const paginationMeta = (pagination, totalItems) => {
           <VBtn
             color="primary"
             prepend-icon="tabler-plus"
-            @click="isAddDocumentDialogVisible = true"
+            @click="isAddEditMembersDialogVisible = true"
           >
-            Add Document
+            Add Member
           </VBtn>
         </div>
       </div>
       <VDivider class="mt-4" />
-
-      <!-- Datatable -->
+      
+      <!-- // 👉 (Table) -->
       <VDataTableServer
         v-model:items-per-page="itemsPerPage"
         v-model:page="page"
         :headers="headers"
-        :items="documents"
-        :items-length="totalDocument"
+        :items="users"
+        :items-length="totalUser"
         class="text-no-wrap"
         @update:options="updateOptions"
       >
-        <!-- Title -->
-        <template #item.title="{ item }">
-          {{ item.title }}
+        <!-- User -->
+        <template #item.user="{ item }">
+          <div class="d-flex align-items-center">
+            <img
+              :src="item.avatar"
+              alt="Avatar"
+              style=" border-radius: 50%; block-size: 36px; inline-size: 36px; object-fit: cover;"
+              class="me-3"
+            >
+            <div class="d-flex flex-column">
+              <span>{{ item.user }}</span>
+              <span class="text-sm text-muted">{{ item.email }}</span>
+            </div>
+          </div>
         </template>
-        <!-- Category -->
-        <template #item.category="{ item }">
-          {{ item.category }}
+        <!-- Role -->
+        <template #item.role="{ item }">
+          {{ item.role }}
         </template>
-        <!-- Since -->
-        <template #item.since="{ item }">
-          {{ new Date(item.since).toDateString() }}
+        <!-- Code -->
+        <template #item.code="{ item }">
+          {{ item.code }}
         </template>
-        <!-- Until -->
-        <template #item.until="{ item }">
-          {{ new Date(item.until).toDateString() }}
-        </template>
-        <!-- Attachment -->
-        <template #item.attachment="{ item }">
-          <span class="text-body-1 font-weight-medium text-high-emphasis">{{ item.attachment }}</span>
+        <!-- Status -->
+        <template #item.status="{ item }">
+          <VChip
+            :color="item.status === 'Active' ? 'success' : 'error'"
+            label
+          >
+            {{ item.status }}
+          </VChip>
         </template>
         <!-- Actions -->
         <template #item.actions="{ item }">
@@ -393,13 +347,13 @@ const paginationMeta = (pagination, totalItems) => {
           
           <div class="d-flex align-center justify-space-between flex-wrap gap-3 pa-5 pt-3">
             <p class="text-sm text-medium-emphasis mb-0">
-              {{ paginationMeta({ page, itemsPerPage }, totalDocument) }}
+              {{ paginationMeta({ page, itemsPerPage }, totalUser) }}
             </p>
             
             <VPagination
               v-model="page"
-              :length="Math.ceil(totalDocument / itemsPerPage)"
-              :total-visible="$vuetify.display.xs ? 1 : Math.min(Math.ceil(totalDocument / itemsPerPage), 5)"
+              :length="Math.ceil(totalUser / itemsPerPage)"
+              :total-visible="$vuetify.display.xs ? 1 : Math.min(Math.ceil(totalUser / itemsPerPage), 5)"
             >
               <template #prev="slotProps">
                 <VBtn
@@ -426,14 +380,6 @@ const paginationMeta = (pagination, totalItems) => {
         </template>
       </VDataTableServer>
     </VCard>
-    <AddEditDocumentDialog v-model:is-dialog-visible="isAddDocumentDialogVisible" />
+    <AddEditMembersDialog v-model:is-dialog-visible="isAddEditMembersDialogVisible" />
   </div>
 </template>
-
-
-<style lang="scss" scoped>
-.document-widget {
-  border-block-end: 1px solid rgba(var(--v-theme-on-surface), var(--v-border-opacity));
-  padding-block-end: 1rem;
-}
-</style>

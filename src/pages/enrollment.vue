@@ -1,62 +1,81 @@
 <script setup>
-import AddEditDocumentDialog from '@/components/dialogs/AddEditDocumentDialog.vue'
+import EditEnrollmentDialog from '@/components/dialogs/EditEnrollmentDialog.vue'
+import avatar1 from '@images/avatars/avatar-1.png'
+import avatar2 from '@images/avatars/avatar-2.png'
 import { ref, watch } from 'vue'
 import { VDataTableServer } from 'vuetify/labs/VDataTable'
 
 const widgetData = ref([
   {
-    title: 'Gallery',
+    title: 'All Enrollment',
     value: '54',
-    icon: 'tabler-photo',
+    icon: 'tabler-user',
+    iconColor: 'info',
   },
   {
-    title: 'Document',
+    title: 'Registered Enrollment',
     value: '5',
-    icon: 'tabler-files',
+    icon: 'tabler-user-plus',
+    iconColor: 'gray',
   },
   {
-    title: 'Article',
+    title: 'Accepted Enrollment',
     value: '12',
-    icon: 'tabler-file-text',
+    icon: 'tabler-user-exclamation',
+    iconColor: 'warning',
+  },
+  {
+    title: 'Approved Enrollment',
+    value: '54',
+    icon: 'tabler-user-check',
+    iconColor: 'success',
   },
 ])
 
 const headers = [
   {
-    title: 'Title',
-    key: 'title',
+    title: 'Name',
+    key: 'name',
   },
   {
-    title: 'Category',
-    key: 'category',
-    width: '10',
+    title: 'Phone',
+    key: 'phone',
   },
   {
-    title: 'Since',
-    key: 'since',
-    width: '30',
+    title: 'Activity',
+    key: 'activity',
+    width: '5',
   },
   {
-    title: 'Until',
-    key: 'until',
-    width: '50',
+    title: 'Updated at',
+    key: 'updated',
+    width: '5',
   },
   {
-    title: 'Attachment',
-    key: 'attachment',
-    width: '70',
+    title: 'Card',
+    key: 'card',
+    sortable: false,
+    width: '5',
+  },
+  {
+    title: 'Face',
+    key: 'face',
+    sortable: false,
+    width: '5',
   },
   {
     title: 'Actions',
     key: 'actions',
     sortable: false,
-    width: '100',
+    width: '5',
     align: 'end',
   },
 ]
 
-const selectedCategory = ref()
+// category options
+const selectedActivity = ref()
 const searchQuery = ref('')
+const selectedStatus = ref()
 
 // Data table options
 const itemsPerPage = ref(10)
@@ -64,141 +83,64 @@ const page = ref(1)
 const sortBy = ref()
 const orderBy = ref()
 
-const isAddDocumentDialogVisible = ref(false)
+const isEditEnrollmentDialogVisible = ref(false)
 
-// Mock data for the data table
-const allDocuments = ref([
+const allEnrollments = ref([
   {
     id: 1,
-    title: 'Document 1',
-    category: 'Category 1',
-    since: '2023-01-01',
-    until: '2023-12-31',
-    attachment: '10 Attachment',
+    name: 'name 1',
+    email: 'user1@email.com',
+    phone: '081234567891',
+    activity: 'Register',
+    updated: '2023-01-01',
+    card: avatar1,
+    face: avatar1,
   },
   {
     id: 2,
-    title: 'Document 2',
-    category: 'Category 2',
-    since: '2023-02-01',
-    until: '2023-11-30',
-    attachment: '2 Attachment',
-  },
-  {
-    id: 3,
-    title: 'Document 3',
-    category: 'Category 1',
-    since: '2023-01-01',
-    until: '2023-12-31',
-    attachment: '10 Attachment',
-  },
-  {
-    id: 4,
-    title: 'Document 4',
-    category: 'Category 2',
-    since: '2023-02-01',
-    until: '2023-11-30',
-    attachment: '2 Attachment',
-  },
-  {
-    id: 5,
-    title: 'Document 5',
-    category: 'Category 1',
-    since: '2023-01-01',
-    until: '2023-12-31',
-    attachment: '10 Attachment',
-  },
-  {
-    id: 6,
-    title: 'Document 6',
-    category: 'Category 2',
-    since: '2023-02-01',
-    until: '2023-11-30',
-    attachment: '2 Attachment',
-  },
-  {
-    id: 7,
-    title: 'Document 7',
-    category: 'Category 1',
-    since: '2023-01-01',
-    until: '2023-12-31',
-    attachment: '10 Attachment',
-  },
-  {
-    id: 8,
-    title: 'Document 8',
-    category: 'Category 2',
-    since: '2023-02-01',
-    until: '2023-11-30',
-    attachment: '2 Attachment',
-  },
-  {
-    id: 9,
-    title: 'Document 9',
-    category: 'Category 1',
-    since: '2023-01-01',
-    until: '2023-12-31',
-    attachment: '10 Attachment',
-  },
-  {
-    id: 10,
-    title: 'Document 10',
-    category: 'Category 2',
-    since: '2023-02-01',
-    until: '2023-11-30',
-    attachment: '2 Attachment',
-  },
-  {
-    id: 11,
-    title: 'Document 11',
-    category: 'Category 1',
-    since: '2023-01-01',
-    until: '2023-12-31',
-    attachment: '10 Attachment',
-  },
-  {
-    id: 12,
-    title: 'Document 12',
-    category: 'Category 2',
-    since: '2023-02-01',
-    until: '2023-11-30',
-    attachment: '2 Attachment',
+    name: 'name 2',
+    email: 'user2@email.com',
+    phone: '081234567891',
+    activity: 'Active',
+    updated: '2023-01-01',
+    card: avatar2,
+    face: avatar2,
   },
 
   // Add more mock data as needed
 ])
 
-const category = [
+const activity = [
   'Foo',
   'Bar',
   'Fizz',
   'Buzz',
 ]
 
-const documents = ref([])
-const totalDocument = ref(allDocuments.value.length)
+const enrollments = ref([])
+const totalEnrollment = ref(allEnrollments.value.length)
 
-const fetchDocuments = () => {
+const fetchEnrollments = () => {
   const start = (page.value - 1) * itemsPerPage.value
   const end = start + itemsPerPage.value
 
-  documents.value = allDocuments.value.slice(start, end)
+  enrollments.value = allEnrollments.value.slice(start, end)
 }
 
 const updateOptions = options => {
   page.value = options.page
   itemsPerPage.value = options.itemsPerPage
-  fetchDocuments()
+  fetchEnrollments()
 }
 
-watch([page, itemsPerPage], fetchDocuments, { immediate: true })
+watch([page, itemsPerPage], fetchEnrollments, { immediate: true })
 
-const deleteDocument = id => {
-  const index = allDocuments.value.findIndex(doc => doc.id === id)
+const deleteEnrollment = id => {
+  const index = allEnrollments.value.findIndex(doc => doc.id === id)
   if (index !== -1) {
-    allDocuments.value.splice(index, 1)
-    totalDocument.value = allDocuments.value.length
-    fetchDocuments()
+    allEnrollments.value.splice(index, 1)
+    totalEnrollment.value = allEnrollments.value.length
+    fetchEnrollments()
   }
 }
 
@@ -217,14 +159,13 @@ const paginationMeta = (pagination, totalItems) => {
     <VRow>
       <VCol cols="12">
         <h4 class="text-h4">
-          Document
+          Enrollment
         </h4>
         <p>
-          A useful tool for managing actor management.
+          A useful tool for managing occupants enrollment.
         </p>
       </VCol>
     </VRow>
-    <!-- Widgets -->
     <VCard class="mb-6">
       <VCardText>
         <VRow>
@@ -235,7 +176,7 @@ const paginationMeta = (pagination, totalItems) => {
             <VCol
               cols="12"
               sm="6"
-              md="4"
+              md="3"
               class="px-6"
             >
               <div
@@ -263,6 +204,7 @@ const paginationMeta = (pagination, totalItems) => {
                   </div>
                 </div>
                 <VAvatar
+                  :color="data.iconColor"
                   variant="tonal"
                   rounded
                   size="38"
@@ -284,24 +226,22 @@ const paginationMeta = (pagination, totalItems) => {
         </VRow>
       </VCardText>
     </VCard>
-
-    <!-- Documents -->
+    
+    <!-- Select Category -->
     <VCard
       title="Filters"
       class="mb-6"
     >
       <VCardText>
         <VRow>
-          <!-- Select Category -->
           <VCol
             cols="12"
             sm="4"
           >
             <AppSelect
-              :items="category"
-              :menu-props="{ transition: 'scroll-y-transition' }"
-              label="Category"
-              placeholder="Select Category"
+              v-model="selectedActivity"
+              placeholder="Select Activity"
+              :items="activity"
               clearable
               clear-icon="tabler-x"
             />
@@ -314,7 +254,7 @@ const paginationMeta = (pagination, totalItems) => {
           <!-- Search -->
           <AppTextField
             v-model="searchQuery"
-            placeholder="Search Document"
+            placeholder="Search Occupant"
             density="compact"
             style="inline-size: 200px;"
             class="me-3"
@@ -326,51 +266,71 @@ const paginationMeta = (pagination, totalItems) => {
             v-model="itemsPerPage"
             :items="[5, 10, 20, 25, 50]"
           />
-          <VBtn
-            color="primary"
-            prepend-icon="tabler-plus"
-            @click="isAddDocumentDialogVisible = true"
-          >
-            Add Document
-          </VBtn>
         </div>
       </div>
       <VDivider class="mt-4" />
-
-      <!-- Datatable -->
+      
+      <!-- // 👉 (Table) -->
       <VDataTableServer
         v-model:items-per-page="itemsPerPage"
         v-model:page="page"
         :headers="headers"
-        :items="documents"
-        :items-length="totalDocument"
+        :items="enrollments"
+        :items-length="totalEnrollment"
         class="text-no-wrap"
         @update:options="updateOptions"
       >
-        <!-- Title -->
-        <template #item.title="{ item }">
-          {{ item.title }}
+        <!-- Name -->
+        <template #item.name="{ item }">
+          <div class="d-flex align-items-center">
+            <div class="d-flex flex-column">
+              <span>{{ item.name }}</span>
+              <span class="text-sm text-muted">{{ item.email }}</span>
+            </div>
+          </div>
         </template>
-        <!-- Category -->
-        <template #item.category="{ item }">
-          {{ item.category }}
+        <!-- Phone -->
+        <template #item.phone="{ item }">
+          {{ item.phone }}
         </template>
-        <!-- Since -->
-        <template #item.since="{ item }">
-          {{ new Date(item.since).toDateString() }}
+        <!-- Activity -->
+        <template #item.activity="{ item }">
+          <VChip
+            :color="item.activity === 'Active' ? 'success' : 'error'"
+            label
+          >
+            {{ item.activity }}
+          </VChip>
         </template>
-        <!-- Until -->
-        <template #item.until="{ item }">
-          {{ new Date(item.until).toDateString() }}
+        <!-- Updated At -->
+        <template #item.updated="{ item }">
+          {{ new Date(item.updated).toDateString() }}
         </template>
-        <!-- Attachment -->
-        <template #item.attachment="{ item }">
-          <span class="text-body-1 font-weight-medium text-high-emphasis">{{ item.attachment }}</span>
+        <!-- Card -->
+        <template #item.card="{ item }">
+          <img
+            :src="item.card"
+            alt="Card"
+            style=" border-radius: 5%; block-size: 36px; inline-size: 55px; object-fit: cover;"
+            class="me-3"
+          >
+        </template>
+        <!-- Face -->
+        <template #item.face="{ item }">
+          <img
+            :src="item.face"
+            alt="Avatar"
+            style=" border-radius: 50%; block-size: 36px; inline-size: 36px; object-fit: cover;"
+            class="me-3"
+          >
         </template>
         <!-- Actions -->
         <template #item.actions="{ item }">
           <IconBtn>
-            <VIcon icon="tabler-edit" />
+            <VIcon
+              icon="tabler-edit" 
+              @click="isEditEnrollmentDialogVisible = true"
+            />
           </IconBtn>
           <IconBtn>
             <VIcon icon="tabler-dots-vertical" />
@@ -379,7 +339,7 @@ const paginationMeta = (pagination, totalItems) => {
                 <VListItem
                   value="delete"
                   prepend-icon="tabler-trash"
-                  @click="deleteDocument(item.id)"
+                  @click="deleteEnrollment(item.id)"
                 >
                   Delete
                 </VListItem>
@@ -393,13 +353,13 @@ const paginationMeta = (pagination, totalItems) => {
           
           <div class="d-flex align-center justify-space-between flex-wrap gap-3 pa-5 pt-3">
             <p class="text-sm text-medium-emphasis mb-0">
-              {{ paginationMeta({ page, itemsPerPage }, totalDocument) }}
+              {{ paginationMeta({ page, itemsPerPage }, totalEnrollment) }}
             </p>
             
             <VPagination
               v-model="page"
-              :length="Math.ceil(totalDocument / itemsPerPage)"
-              :total-visible="$vuetify.display.xs ? 1 : Math.min(Math.ceil(totalDocument / itemsPerPage), 5)"
+              :length="Math.ceil(totalEnrollment / itemsPerPage)"
+              :total-visible="$vuetify.display.xs ? 1 : Math.min(Math.ceil(totalEnrollment / itemsPerPage), 5)"
             >
               <template #prev="slotProps">
                 <VBtn
@@ -426,14 +386,6 @@ const paginationMeta = (pagination, totalItems) => {
         </template>
       </VDataTableServer>
     </VCard>
-    <AddEditDocumentDialog v-model:is-dialog-visible="isAddDocumentDialogVisible" />
+    <EditEnrollmentDialog v-model:is-dialog-visible="isEditEnrollmentDialogVisible" />
   </div>
 </template>
-
-
-<style lang="scss" scoped>
-.document-widget {
-  border-block-end: 1px solid rgba(var(--v-theme-on-surface), var(--v-border-opacity));
-  padding-block-end: 1rem;
-}
-</style>
